@@ -1,0 +1,179 @@
+@charset "utf-8";
+/* common begin */ 
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+    *font-size: 11px;
+    font-family: Verdana, Arial,, Helvetica, sans-serif;
+    scrollbar-face-color:
+    #dff9fe;
+    scrollbar-highlight-color:
+    #FFFFFF;
+    scrollbar-3dlight-color:
+    #9adae7;
+    scrollbar-darkshadow-color:
+    #9adae7;
+    scrollbar-Shadow-color:
+    #FFFFFF;
+    scrollbar-arrow-color:
+    #006498;
+    scrollbar-track-color:
+    #fff;
+    font-family: Arial, Helvetica, sans-serif, Verdana;
+}
+
+img {
+    border: 0
+}
+
+body {
+    overflow: hidden;
+    scrollbar-face-color: #dff9fe;
+    scrollbar-highlight-color: #FFFFFF;
+    scrollbar-3dlight-color: #9adae7;
+    scrollbar-darkshadow-color: #9adae7;
+    scrollbar-Shadow-color: #FFFFFF;
+    scrollbar-arrow-color: #006498;
+    scrollbar-track-color: #fff;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+/* common end */
+#container {
+    width: 100%;
+    height: 100%;
+}
+
+#container td {
+    vertical-align: middle;
+}
+
+#topLogo {
+    width: 100%;
+    height: 60px;
+    background: #006498 url(images/top_bg.gif) repeat-x top;
+    white-space: nowrap;
+    color: #fff;
+}
+
+.refreshTopButton {
+    width: 70px;
+    height: 25px;
+    padding-left: 8px;
+}
+
+.refreshTopButton img {
+    margin-top: 4px;
+}
+
+.refreshTopButton span {
+    color: #fff;
+    position: absolute;
+    top : 8px;
+    *top : 12px;
+}
+
+.refreshTopButtonFoucs {
+    border: 1px solid #9eb7d6;
+    background-color: #C7DAF2; 
+}
+
+.refreshTopButtonFoucs span {
+    color: #165E9E;
+}
+
+.logo {
+    width: 170px;
+}
+
+.projectFont {
+    font-family: "黑体";
+    font-size : 28px;
+    margin-top : 15px;
+    color: #fff;
+}
+
+#topMenu {
+    text-align: right;
+    height: 23px;
+    width: 100%;
+    background:url(images/Frog.gif);
+    color: #D2E7F6;
+}
+
+#topMenu .left {
+    text-align: left;
+    padding-left: 15px;
+}
+
+#topMenu th {
+    padding: 3px 8px;
+    text-decoration: none;
+}
+
+#topMenu a {
+    color: #D2E7F6;
+}
+
+#topMenu a:hover {
+    text-decoration: underline;
+}
+
+#container #leftMenu {
+    width: 150px;
+    vertical-align: top;
+}
+
+#container #switchBar {
+    width: 9px;
+    vertical-align: middle;
+    background: url(images/ctrl_bg.gif) repeat-y;
+}
+
+#container #switchBar span, .switchArrowR {
+    cursor: pointer;
+    width: 9px;
+    height: 44px;
+    display: block;
+}
+
+#container #switchBar span {
+    background: url(images/shrink_left.gif);
+}
+
+#container #switchBar .switchArrowR {
+    background: url(images/shrink_right.gif);
+}
+
+#container #mainBody {
+    vertical-align: top;
+}
+
+#copyright {
+    height: 20px;
+}
+
+#copyright td {
+    text-align : center;
+    color : #cceaff;
+    background : #152731;
+    border-top : 1px solid #006498;
+}
+
+.space_10 {
+    height : 10px;
+}
+
+.iframe {
+    overflow-y: hidden;
+}
+
+#warnMsgss td {
+    color : red;
+    margin : 10px;
+    text-align : center;
+}

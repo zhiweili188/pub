@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE configuration PUBLIC " Config 3.0//EN" "E:\dev\workspace\mediacenter-auth\src\main\webapp\mybatis-3-config.dtd">
+<configuration>  <!-- 别名 -->
+	<typeAliases>
+		<typeAlias type="com.szreach.mediacenter.auth.menu.bean.MenuBean" alias="MenuBean" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="com/szreach/mediacenter/auth/menu/dao/MenuBeanMapper.xml" />
+	</mappers>
+</configuration>

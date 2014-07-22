@@ -1,0 +1,101 @@
+@charset "utf-8";
+* {
+margin:0;
+padding:0;
+font-size:13px;
+*font-size:11px;
+font-family:Verdana, Arial, ,Helvetica, sans-serif;
+scrollbar-face-color:#dff9fe;
+scrollbar-highlight-color:#FFFFFF;
+scrollbar-3dlight-color:#9adae7;
+scrollbar-darkshadow-color:#9adae7;
+scrollbar-Shadow-color:#FFFFFF;
+scrollbar-arrow-color:#006498;
+scrollbar-track-color:#fff;
+}
+img{ border:0}
+body{
+overflow:hidden;
+background:#e1edf5;
+border-right:1px solid #a8cce9;
+font-family:Verdana,Arial,Helvetica, sans-serif;
+height:100%;
+}
+a{
+color:#165e9e;
+text-decoration:none;
+}
+#menu{
+height:100%;
+overflow:hidden;
+}
+#menu dl{
+background:#fff;
+margin-top:-2px;
+}
+#menu dt{
+height:26px;
+cursor:pointer;
+background:#fff url(images/line_down.gif) no-repeat right top;
+color:#2668a4;
+text-align:left;
+line-height:26px;
+padding-left:16px;
+white-space:nowrap;
+}
+#menu dt.hover{
+background:#fff url(images/line_up.gif) no-repeat right top;
+color:#1f8107;
+}
+#menu dt.on{
+background:#fff url(images/line_up.gif) no-repeat right top;
+color:#1f8107;
+font-weight:bold;
+}
+#menu dt.nosm{background:#fff url(images/line_up3.gif) repeat-x right top;}
+#menu dt.nosmhover{background:#fff url(images/line_up2.gif) repeat-x right top;}
+#menu dt.nosmon{
+background:#fff url(images/line_up2.gif) repeat-x right top;
+font-weight:bold;
+}
+#menu dt.nosmhover a{color:#1f8107;}
+#menu dt.nosmon a{
+color:#1f8107;
+font-weight:bold;
+}
+#menu dt a span,#menu dt a{
+display:block;
+height:25px;
+}
+#menu dd{
+background:#fff;
+padding:1px;
+height:30px;
+line-height:30px;
+margin-top:-1px;
+border-bottom:1px solid #a8cce9;
+}
+#menu dd a{
+background:url(images/arrow.gif) no-repeat 5px 40%;
+padding-left:18px;
+display:block;
+height:100%;
+border-bottom:1px solid #F4F4F4;
+}
+#menu dd a:hover{
+background:#e2ffdb url(images/arrow.gif) no-repeat 5px 45%;
+color:#098b14;
+/*border-top:1px solid #C3E626;
+border-bottom:1px solid #C3E626;*/
+}
+#menu img{
+vertical-align:middle;
+margin-right:4px;
+height:32px;
+}
+#menu dd.focus{background:#c7f8bb;}
+#menu dd.focus a{
+color:#1f8107;
+font-weight:bold;
+}
+

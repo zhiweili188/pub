@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szreach.mediacenter.auth.menu.dao.MenuDao">
+	<resultMap type="MenuBean" id="MenuMap">
+		<id property="id" column="id"></id>
+		<result property="menuName" column="menu_name"></result>
+		<result property="menuOrder" column="menu_order"  javaType="int" jdbcType="INTEGER"/>
+		<result property="menuAction" column="menu_action"></result>
+		<result property="menuLevel" column="menu_level"  javaType="int" jdbcType="INTEGER"/>
+		<result property="parentID" column="parent_id"></result>
+		<result property="menuCode" column="menu_code"></result>
+		<result property="menuStatus" column="menu_status"  javaType="int" jdbcType="INTEGER"/>
+	</resultMap>
+	<select id="getMenuByID" parameterType="string" resultMap="MenuMap">
+		<![CDATA[ 
+		SELECT * from TB_MENU  WHERE id = #{id}
+		]]>
+	</select>
+	
+	<insert id="insertMenu" parameterType="MenuBean">
+		insert into TB_MENU(id, menu_name, menu_order,menu_action,menu_level, parent_id, menu_code, menu_status) values(
+		   #{id},
+		   #{menuName},
+		   #{menuOrder},
+		   #{menuAction},
+		   #{menuLevel},
+		   #{parentID},
+		   #{menuCode},
+		   #{menuStatus}
+		)
+	</insert>
+	<update id="updateMenu" parameterType="MenuBean">
+		update TB_MENU set menu_name=#{menuName},  
+		menu_order=#{menuOrder},  menu_action=#{menuAction},  
+		menu_level=#{menuLevel},  parent_id=#{parentID},  
+		 menu_status=#{menuStatus}
+		WHERE id = #{id}
+	</update>
+	
+	<select id="count" resultType="int">
+        select count(*) c from TB_MENU;
+    </select>
+    
+    <select id="queryMenu" parameterType="MenuBean" resultMap="MenuMap" >
+        select *  from TB_MENU
+        <where>
+        	<if test="menuName != null">
+        		and menu_name like #{menuName}
+        	</if>
+        	<if test="menuAction != null">
+        		and menu_action like #{menuAction}
+        	</if>
+        	<if test="menuLevel != null">
+        		and menu_level = #{menuLevel}
+        	</if>
+        	<if test="parentID != null">
+        		and parent_id = #{parentID}
+        	</if>
+        	<if test="menuCode != null">
+        		and menu_code = #{menuCode}
+        	</if>
+        	<if test="menuStatus != null">
+        		and menu_status = #{menuStatus}
+        	</if>
+        </where>
+    </select>
+</mapper> 
