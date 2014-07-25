@@ -1,4 +1,14 @@
 pub
 ===
 
-for those who want to share there codes
+希望大家分享代码。
+
+项目名称：mediacenter-auth
+该项目采用maven编译，使用了spring mvc,mybatis.
+项目目标是实现权限控制，包括菜单管理、功能点管理、用户管理、用户组管理、角色管理
+
+总体思想：模块化、
+          高内聚，低耦合、
+          命名要让别人能够看懂、
+          复杂的代码，要加注释说明、
+          多引入你认为好的技术
