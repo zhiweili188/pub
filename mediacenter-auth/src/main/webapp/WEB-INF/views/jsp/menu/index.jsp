@@ -16,22 +16,27 @@
 		     <script src="/auth/js/ligerUI/js/plugins/ligerDialog.js" type="text/javascript"></script>
 		    <script src="/auth/js/jquery.cookie.js"></script>
 		    <script src="/auth/js/json2.js"></script>
+		    <script src="/auth/js/myfun.js"></script>
+		    <script src="/auth/js/biz.js"></script>
 		    
 		     <script type="text/javascript">
         var grid = null;
-        var CustomersData ={};
         $(function () {
             grid = $("#maingrid4").ligerGrid({
+            	checkbox: true,
                 columns: [
-                { display: '主键', name: 'id', align: 'left', width: 120 },
+
                 { display: '公司名', name: 'menuName', minWidth: 60 },
                 { display: '联系名', name: 'menuOrder', width: 50,align:'left' }, { display: '联系名', name: 'menuAction', minWidth: 140 }
                 ], 
-                checkbox :true,
                 params : [],
                 url: "/auth/menu/list.do", 
                 toolbar: { 
-                	items: [{ text: '新增', click: add, icon: 'search2'}]
+                	items: [
+                	        { text: '新增', click: add, icon: 'search2'},
+                	        { text: '修改', click: update, icon: 'search2'},
+                	        { text: '删除', click: deleteSelectedData, icon: 'search2'}
+                	]
                 },
                 width: '100%',height:'100%'
             });
@@ -42,8 +47,54 @@
         
         function add()
         {
-        	 $.ligerDialog.open({ url: '/auth/menu/init_add.do', height: 300, width: 500,   isResize: true
-        	                                                                                });
+        	$.ligerDialog.open({  url: '/auth/menu/init_add.do', height: 300,width: 500, 
+        		id: "editDailog",
+        		name: "editFrame",
+        		title: '编辑',     
+        		buttons: [ 
+        		           { text: '确定', onclick: function (item, dialog) {
+        		       			 $(window.frames["editFrame"].document).find(":submit").click();
+        		        	   
+        		           } }, 
+        		           { text: '取消', onclick: function (item, dialog) {
+        		        	   dialog.close(); 
+        		           } } ] 
+        	
+        	});
+        	
+        }
+        
+        function update()
+        {
+        	var ids = getCheckBoxValues(".dataCheckBox");
+        	$.ligerDialog.open({  url: '/auth/menu/init_update.do?id='+ids, height: 300,width: 500, 
+        		id: "editDailog",
+        		name: "editFrame",
+        		title: '编辑',     
+        		buttons: [ 
+        		           { text: '确定', onclick: function (item, dialog) {
+        		       			 $(window.frames["editFrame"].document).find(":submit").click();
+        		        	   
+        		           } }, 
+        		           { text: '取消', onclick: function (item, dialog) {
+        		        	   dialog.close(); 
+        		           } } ] 
+        	
+        	});
+        	
+        }
+        
+        function deleteSelectedData()
+        {
+        	var ids = getCheckedData(grid);
+        	alert(ids);
+        	var action =new  Action({
+        		url: "/auth/menu/del.do",
+        		params: "id="+ids,
+        		dataType:"json",
+        		callback:function(result){alert(result)}
+        	});
+        	action.ajaxPostData();
         }
         function f_search()
         {
@@ -53,7 +104,7 @@
               gridparms.push({ name: "pagesize", value: grid.options.pageSize });
               grid.loadServerData(gridparms);
         }
-      
+
     </script>
 </head>
 <body style="padding:6px; overflow:hidden;">

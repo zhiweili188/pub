@@ -41,12 +41,30 @@ public class MenuService implements IMenuService{
 		
 		menuDao.insertMenu(menu);
 	}
+	
+	@Override
+	public void updateMenu(MenuBean menu) {
+		String code = this.createCode(menu);
+		menu.setMenuCode(code);
+		menu.setMenuLevel(code.length()/2);
+		menu.setMenuStatus(0);
+		
+		menuDao.updateMenu(menu);
+		
+	}
+	
+	public void delete(String menuId){
+		menuDao.delete(menuId);
+	}
+
 	public MenuBean getMenuByID(String menuId) {
 		MenuBean menu = menuDao.getMenuByID(menuId);
 		return menu;
 	}
 	
 	public List<MenuBean> queryMenu(MenuBean query) {
+		int total = menuDao.count();
+		query.setTotal(total);
 		List<MenuBean> list = menuDao.queryMenu(query);
 		return list;
 	}

@@ -4,13 +4,15 @@
  */
 package com.szreach.mediacenter.auth.menu.bean;
 
+import com.szreach.mediacenter.common.base.PageBean;
+
 /**
  * @Description:
  * @author lizhiwei
  * @Date: 2014-3-7
  * @Version: 1.0
  */
-public class MenuBean {
+public class MenuBean extends PageBean {
 
 	private String id;
 	private String menuName;

@@ -23,4 +23,6 @@ public interface MenuDao {
 	public int count();
 	
 	public List<MenuBean> queryMenu(MenuBean query);
+	
+	public void delete(String menuId);
 }

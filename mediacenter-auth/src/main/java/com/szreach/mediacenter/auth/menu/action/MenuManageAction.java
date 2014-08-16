@@ -6,6 +6,9 @@ package com.szreach.mediacenter.auth.menu.action;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -45,8 +49,13 @@ public class MenuManageAction {
 	
 	@RequestMapping(value="/save.do")
 	public void save(MenuBean model) {
-		menuService.insertMenu(model);
-		
+		if("".equals(model.getId())){
+			
+			menuService.insertMenu(model);
+		} else {
+			
+			menuService.updateMenu(model);
+		}
 	}
 	
 	@RequestMapping(value="/index.do")
@@ -58,6 +67,12 @@ public class MenuManageAction {
 	public ModelAndView  initAdd(Model model) {
 		return new ModelAndView("/menu/add");     
 	}
+	@RequestMapping(value="/init_update.do")
+	public ModelAndView  initUpdate(MenuBean param, Model model) {
+		MenuBean bean = menuService.getMenuByID(param.getId());
+		model.addAttribute("menu", bean);
+		return new ModelAndView("/menu/add");     
+	}
 	
 	@RequestMapping(value="/list.do")
 	@ResponseBody
@@ -65,7 +80,13 @@ public class MenuManageAction {
 		List<MenuBean> list = menuService.queryMenu(query);
 		Gson gson = new Gson();
 		String json = gson.toJson(list);
-		json = "{Rows:"+json+",Total:91}";
+		json = "{Rows:"+json+",Total:"+query.getTotal()+"}";
 		return json;
+	}
+	
+	@RequestMapping(value="/del.do",  method = RequestMethod.POST)
+	public void delete(HttpServletRequest request, HttpServletResponse response) {
+		String selectId = request.getParameter("id");
+		menuService.delete(selectId);
 	}
 }

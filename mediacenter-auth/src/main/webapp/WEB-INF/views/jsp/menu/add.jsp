@@ -67,46 +67,43 @@
         });  
     </script>
     <style type="text/css">
-           body{ font-size:12px;}
-        .l-table-edit {}
-        .l-table-edit-td{ padding:4px;}
-        .l-button-submit,.l-button-test{width:80px; float:left; margin-left:10px; padding-bottom:2px;}
-        .l-verify-tip{ left:230px; top:120px;}
+       
     </style>
 
 </head>
 <body>
 <form id="form2" action="/auth/menu/save.do">
+<input type="hidden" id="id" name="id" value="${menu.id }">
 <div >
 </div>
 	<table>
 		<tr>
 			<td>菜单名称</td>
-			<td><input id="menuName" name="menuName" type="text"  ltype="text"  validate="{required:true,minlength:3,maxlength:10}"/></td>
+			<td><input id="menuName" name="menuName" type="text"  value="${menu.menuName }" ltype="text"  validate="{required:true,minlength:3,maxlength:10}"/></td>
 			 <td align="left"></td>
 		</tr>
 		<tr>
 			<td>访问路径</td>
-			<td><input id="menuAction" name="menuAction" type="text"   ltype="text"  validate="{required:true,minlength:3,maxlength:100}"/></td>
+			<td><input id="menuAction" name="menuAction" type="text"  value="${menu.menuAction }"   ltype="text"  validate="{required:true,minlength:3,maxlength:100}"/></td>
 			 <td align="left"></td>
 		</tr>
 		<tr>
 			<td>显示顺序</td>
-			<td><input id="menuOrder" name="menuOrder" type="text"  ltype="text"  validate="{required:true,minlength:1,maxlength:2}"/></td>
+			<td><input id="menuOrder" name="menuOrder" type="text"  value="${menu.menuOrder }"  ltype="text"  validate="{required:true,minlength:1,maxlength:2}"/></td>
 			 <td align="left"></td>
 		</tr>
 		
 		<tr>
 			<td>父菜单</td>
 			<td>
-				<select id="parentID" name="parentID">
+				<select id="parentID" name="parentID" >
 					<option value="">请选择</option>
 				</select>
 			</td>
 			 <td align="left"></td>
 		</tr>
-		<tr>
-			<td colspan="4" style="text-align: center;"> <input id="submit"  type="submit" value="提交" class="l-button"/><input id="cancel"  type="button" value="取消" class="l-button"/></td>
+		<tr style="display: none;">
+			<td colspan="4" style="text-align: center;"> <input id="submit"  type="submit" value="提交" class="l-button"/></td>
 		</tr>
 	</table>
 </form>

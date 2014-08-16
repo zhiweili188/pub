@@ -18,6 +18,8 @@ public interface IMenuService {
 
 	public int count();
 	public void insertMenu(MenuBean menu);
+	public void updateMenu(MenuBean menu);
+	public void delete(String menuId);
 	public MenuBean getMenuByID(String menuId);
 	
 	public List<MenuBean> queryMenu(MenuBean query);
