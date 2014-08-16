@@ -15,6 +15,11 @@ public class PageBean {
 	private int pageSize = 10; // 每页行数
 	private int total; // 总行数
 	private int pageCnt; // 总页数
+	
+	  // 起始记录index
+    private int beginIndex;
+    // 末尾记录index
+    private int endIndex;
 
 	public int getCurrPage() {
 		return currPage;
@@ -38,6 +43,19 @@ public class PageBean {
 
 	public void setTotal(int total) {
 		this.total = total;
+		
+		pageCnt = (this.total - 1) / pageSize + 1;
+        if (this.currPage > pageCnt) {
+        	this.currPage = pageCnt;
+        }
+        if (this.currPage < 1) {
+        	this.currPage = 1;
+        }
+        beginIndex = (this.currPage - 1) * this.pageSize;
+        endIndex = beginIndex + this.pageSize - 1;
+        if (endIndex > this.total - 1) {
+            endIndex = this.total - 1;
+        }
 	}
 
 	public int getPageCnt() {
@@ -46,6 +64,22 @@ public class PageBean {
 
 	public void setPageCnt(int pageCnt) {
 		this.pageCnt = pageCnt;
+	}
+
+	public int getBeginIndex() {
+		return beginIndex;
+	}
+
+	public void setBeginIndex(int beginIndex) {
+		this.beginIndex = beginIndex;
+	}
+
+	public int getEndIndex() {
+		return endIndex;
+	}
+
+	public void setEndIndex(int endIndex) {
+		this.endIndex = endIndex;
 	}
 
 }
