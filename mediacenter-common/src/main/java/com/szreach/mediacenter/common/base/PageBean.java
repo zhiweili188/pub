@@ -44,7 +44,11 @@ public class PageBean {
 	public void setTotal(int total) {
 		this.total = total;
 		
-		pageCnt = (this.total - 1) / pageSize + 1;
+		pageCnt = this.total  / pageSize ;
+		int diff = this.total % this.pageSize;
+		if(diff > 0) {
+			this.pageCnt += 1;
+		}
         if (this.currPage > pageCnt) {
         	this.currPage = pageCnt;
         }
@@ -53,8 +57,8 @@ public class PageBean {
         }
         beginIndex = (this.currPage - 1) * this.pageSize;
         endIndex = beginIndex + this.pageSize - 1;
-        if (endIndex > this.total - 1) {
-            endIndex = this.total - 1;
+        if (endIndex > this.total ) {
+            endIndex = this.total ;
         }
 	}
 

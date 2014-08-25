@@ -54,7 +54,13 @@ public class MenuService implements IMenuService{
 	}
 	
 	public void delete(String menuId){
-		menuDao.delete(menuId);
+		if(menuId != null && !"".equals(menuId)) {
+			String[] ids = menuId.split(",");
+			for(String id: ids) {
+				
+				menuDao.delete(id);
+			}
+		}
 	}
 
 	public MenuBean getMenuByID(String menuId) {

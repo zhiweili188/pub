@@ -38,7 +38,18 @@
                 	        { text: '删除', click: deleteSelectedData, icon: 'search2'}
                 	]
                 },
-                width: '100%',height:'100%'
+                width: '100%',height:'100%',
+                pageSize: 10,                        
+                sortName : null,
+
+                sortOrder:null,      
+
+                root :'Rows',                       //数据源字段名
+                record:'Total',                     //数据源记录数字段名
+                pageParmName :'currPage',               //页索引参数名，(提交给服务器)
+                pagesizeParmName:'pageSize',        //页记录数参数名，(提交给服务器)
+                sortnameParmName:'sortname',        //页排序列名(提交给服务器)
+                sortorderParmName:'sortorder',      //页排序方向(提交给服务器)
             });
 
 
@@ -66,7 +77,16 @@
         
         function update()
         {
-        	var ids = getCheckBoxValues(".dataCheckBox");
+        	var ids = getCheckedData(grid);
+        	if(ids.length==0) {
+        		$.ligerDialog.alert("请选择","警告");
+        		return;
+        	}
+        	var arr = ids.split(",");
+        	if(arr.length > 1) {
+        		$.ligerDialog.alert("只能选择一个","警告");
+        		return;
+        	}
         	$.ligerDialog.open({  url: '/auth/menu/init_update.do?id='+ids, height: 300,width: 500, 
         		id: "editDailog",
         		name: "editFrame",
@@ -87,21 +107,38 @@
         function deleteSelectedData()
         {
         	var ids = getCheckedData(grid);
-        	alert(ids);
+        	//alert(ids);
+        	if(ids.length==0) {
+        		$.ligerDialog.alert("请选择","警告");
+        		return;
+        	}
         	var action =new  Action({
         		url: "/auth/menu/del.do",
         		params: "id="+ids,
         		dataType:"json",
         		callback:function(result){alert(result)}
         	});
-        	action.ajaxPostData();
+        	
+        	$.ligerDialog.confirm("确定要删除吗？",function(flag){
+        		if(flag){
+        		  	$.ajax({
+              		  type: 'POST',
+              		  url: "/auth/menu/del.do",
+              		  data: "id="+ids,
+              		  success: function(result){f_search()},
+              		  dataType: "text"
+              		});
+        		}
+        	});
+        	//action.ajaxPostData();
+      
         }
         function f_search()
         {
         	  var gridparms = [];
               gridparms.push({ name: "menuName", value: $("#menuName").val() });
-              gridparms.push({ name: "page", value: 1 });
-              gridparms.push({ name: "pagesize", value: grid.options.pageSize });
+              gridparms.push({ name: "currPage", value: 1 });
+              gridparms.push({ name: "pageSize", value: grid.options.pageSize });
               grid.loadServerData(gridparms);
         }
 
@@ -117,7 +154,6 @@
 		</table>
 </div>
     <div id="maingrid4" style="margin:0; padding:0"></div>
-   
 
   <div style="display:none;">
   <!-- g data total ttt -->
