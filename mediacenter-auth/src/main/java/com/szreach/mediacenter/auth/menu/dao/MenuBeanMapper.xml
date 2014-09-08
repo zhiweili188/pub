@@ -41,10 +41,10 @@
         select count(*) c from tb_menu
            <where>
         	<if test="menuName != null and menuName != ''">
-        		and menu_name like #{menuName}
+        		and menu_name like "%"#{menuName}"%"
         	</if>
         	<if test="menuAction != null">
-        		and menu_action like #{menuAction}
+        		and menu_action like "%"#{menuAction}"%"
         	</if>
         	<if test="menuLevel != null">
         		and menu_level = #{menuLevel}
@@ -66,10 +66,10 @@
         select *  from tb_menu
         <where>
         	<if test="menuName != null and menuName != ''">
-        		and menu_name like #{menuName}
+        		and menu_name like "%"#{menuName}"%"
         	</if>
         	<if test="menuAction != null">
-        		and menu_action like #{menuAction}
+        		and menu_action like "%"#{menuAction}"%"
         	</if>
         	<if test="menuLevel != null">
         		and menu_level = #{menuLevel}

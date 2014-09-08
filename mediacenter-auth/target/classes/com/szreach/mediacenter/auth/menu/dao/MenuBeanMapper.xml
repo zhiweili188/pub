@@ -13,12 +13,12 @@
 	</resultMap>
 	<select id="getMenuByID" parameterType="string" resultMap="MenuMap">
 		<![CDATA[ 
-		SELECT * from TB_MENU  WHERE id = #{id}
+		SELECT * from tb_menu  WHERE id = #{id}
 		]]>
 	</select>
 	
 	<insert id="insertMenu" parameterType="MenuBean">
-		insert into TB_MENU(id, menu_name, menu_order,menu_action,menu_level, parent_id, menu_code, menu_status) values(
+		insert into tb_menu(id, menu_name, menu_order,menu_action,menu_level, parent_id, menu_code, menu_status) values(
 		   #{id},
 		   #{menuName},
 		   #{menuOrder},
@@ -30,7 +30,7 @@
 		)
 	</insert>
 	<update id="updateMenu" parameterType="MenuBean">
-		update TB_MENU set menu_name=#{menuName},  
+		update tb_menu set menu_name=#{menuName},  
 		menu_order=#{menuOrder},  menu_action=#{menuAction},  
 		menu_level=#{menuLevel},  parent_id=#{parentID},  
 		 menu_status=#{menuStatus}
@@ -38,17 +38,13 @@
 	</update>
 	
 	<select id="count" resultType="int">
-        select count(*) c from TB_MENU;
-    </select>
-    
-    <select id="queryMenu" parameterType="MenuBean" resultMap="MenuMap" >
-        select *  from TB_MENU
-        <where>
-        	<if test="menuName != null">
-        		and menu_name like #{menuName}
+        select count(*) c from tb_menu
+           <where>
+        	<if test="menuName != null and menuName != ''">
+        		and menu_name like "%"#{menuName}"%"
         	</if>
         	<if test="menuAction != null">
-        		and menu_action like #{menuAction}
+        		and menu_action like "%"#{menuAction}"%"
         	</if>
         	<if test="menuLevel != null">
         		and menu_level = #{menuLevel}
@@ -62,6 +58,38 @@
         	<if test="menuStatus != null">
         		and menu_status = #{menuStatus}
         	</if>
+        	
         </where>
     </select>
+    
+    <select id="queryMenu" parameterType="MenuBean" resultMap="MenuMap" >
+        select *  from tb_menu
+        <where>
+        	<if test="menuName != null and menuName != ''">
+        		and menu_name like "%"#{menuName}"%"
+        	</if>
+        	<if test="menuAction != null">
+        		and menu_action like "%"#{menuAction}"%"
+        	</if>
+        	<if test="menuLevel != null">
+        		and menu_level = #{menuLevel}
+        	</if>
+        	<if test="parentID != null">
+        		and parent_id = #{parentID}
+        	</if>
+        	<if test="menuCode != null">
+        		and menu_code = #{menuCode}
+        	</if>
+        	<if test="menuStatus != null">
+        		and menu_status = #{menuStatus}
+        	</if>
+        	
+        </where>
+        <if test="endIndex > 0">
+        		limit #{beginIndex}, #{endIndex}
+        	</if>
+    </select>
+    <delete id="delete" parameterType="string">
+    	delete from tb_menu where id=#{id}
+    </delete>
 </mapper> 

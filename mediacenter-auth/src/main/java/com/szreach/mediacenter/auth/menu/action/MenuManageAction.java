@@ -84,7 +84,7 @@ public class MenuManageAction {
 		List<MenuBean> list = menuService.queryMenu(query);
 		Gson gson = new Gson();
 		String json = gson.toJson(list);
-		json = "{Rows:"+json+",Total:"+query.getTotal()+"}";
+		json = "{Rows:"+json+",Total:"+query.getTotal()+",currPage:"+query.getCurrPage()+"}";
 		return json;
 	}
 	
