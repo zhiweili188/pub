@@ -4,6 +4,10 @@
  */
 package com.szreach.mediacenter.auth.menu.action;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -80,13 +84,30 @@ public class MenuManageAction {
 		List<MenuBean> list = menuService.queryMenu(query);
 		Gson gson = new Gson();
 		String json = gson.toJson(list);
-		json = "{Rows:"+json+",Total:"+query.getTotal()+"}";
+		json = "{Rows:"+json+",Total:"+query.getTotal()+",currPage:"+query.getCurrPage()+"}";
 		return json;
 	}
 	
-	@RequestMapping(value="/del.do",  method = RequestMethod.POST)
+	@RequestMapping(value="/del.do")
 	public void delete(HttpServletRequest request, HttpServletResponse response) {
 		String selectId = request.getParameter("id");
 		menuService.delete(selectId);
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			if (out != null) {
+				out.print("success");
+				out.flush();
+				out.close();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	public static void main(String[] args) throws UnsupportedEncodingException {
+		String en = URLEncoder.encode("眼界.ppt", "iso8859-1");
+		System.out.println(en);
 	}
 }

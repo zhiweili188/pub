@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
-<!DOCTYPE configuration PUBLIC " Config 3.0//EN" "E:\dev\workspace\mediacenter-auth\src\main\webapp\mybatis-3-config.dtd">
+<!DOCTYPE configuration PUBLIC " Config 3.0//EN" "E:\dev\gitWork\pub\mediacenter-auth\src\main\webapp\mybatis-3-config.dtd">
 <configuration>  <!-- 别名 -->
 	<typeAliases>
 		<typeAlias type="com.szreach.mediacenter.auth.menu.bean.MenuBean" alias="MenuBean" />
+		<typeAlias type="com.szreach.mediacenter.auth.usergroup.bean.UserGroupBean" alias="UserGroupBean" />
+		<typeAlias type="com.szreach.mediacenter.auth.role.bean.RoleBean" alias="RoleBean" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/szreach/mediacenter/auth/menu/dao/MenuBeanMapper.xml" />
+		<mapper resource="com/szreach/mediacenter/auth/usergroup/dao/UserGroupBeanMapper.xml" />
+		<mapper resource="com/szreach/mediacenter/auth/role/dao/RoleBeanMapper.xml" />
 	</mappers>
 </configuration>

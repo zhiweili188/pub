@@ -38,17 +38,13 @@
 	</update>
 	
 	<select id="count" resultType="int">
-        select count(*) c from tb_menu;
-    </select>
-    
-    <select id="queryMenu" parameterType="MenuBean" resultMap="MenuMap" >
-        select *  from tb_menu
-        <where>
-        	<if test="menuName != null">
-        		and menu_name like #{menuName}
+        select count(*) c from tb_menu
+           <where>
+        	<if test="menuName != null and menuName != ''">
+        		and menu_name like "%"#{menuName}"%"
         	</if>
         	<if test="menuAction != null">
-        		and menu_action like #{menuAction}
+        		and menu_action like "%"#{menuAction}"%"
         	</if>
         	<if test="menuLevel != null">
         		and menu_level = #{menuLevel}
@@ -64,7 +60,32 @@
         	</if>
         	
         </where>
-        <if test="currPage > 0">
+    </select>
+    
+    <select id="queryMenu" parameterType="MenuBean" resultMap="MenuMap" >
+        select *  from tb_menu
+        <where>
+        	<if test="menuName != null and menuName != ''">
+        		and menu_name like "%"#{menuName}"%"
+        	</if>
+        	<if test="menuAction != null">
+        		and menu_action like "%"#{menuAction}"%"
+        	</if>
+        	<if test="menuLevel != null">
+        		and menu_level = #{menuLevel}
+        	</if>
+        	<if test="parentID != null">
+        		and parent_id = #{parentID}
+        	</if>
+        	<if test="menuCode != null">
+        		and menu_code = #{menuCode}
+        	</if>
+        	<if test="menuStatus != null">
+        		and menu_status = #{menuStatus}
+        	</if>
+        	
+        </where>
+        <if test="endIndex > 0">
         		limit #{beginIndex}, #{endIndex}
         	</if>
     </select>

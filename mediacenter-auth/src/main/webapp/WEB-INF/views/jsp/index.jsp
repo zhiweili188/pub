@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ include file="common.jsp" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
@@ -22,11 +23,10 @@
             var indexdata = 
             	[
             	    { text: '基础',isexpand:false, children: [ 
-            			{url:"demos/base/resizable.htm",text:"改变大小"},
-            			{url:"demos/base/drag.htm",text:"拖动"},
-            			{url:"demos/base/drag2.htm",text:"拖动2"},
-            			{url:"demos/base/dragresizable.htm",text:"拖动并改变大小"},
-            			{url:"demos/base/tip.htm",text:"气泡"},
+            			{url:"<%=ctxPath%>/menu/index.do",text:"菜单管理", tabid: 1},
+            			{url:"<%=ctxPath%>/usergroup/index.do",text:"用户组管理", tabid: 1},
+            			{url:"<%=ctxPath%>/role/index.do",text:"角色管理", tabid: 1},
+            			
             			{url:"demos/base/tip2.htm",text:"气泡2"}
             		]
             	    }
@@ -116,43 +116,20 @@
             }
             function f_addTab(tabid, text, url)
             {
+            
                 tab.addTabItem({
                     tabid: tabid,
                     text: text,
                     url: url,
                     callback: function ()
                     {
-                        addShowCodeBtn(tabid); 
-                        addFrameSkinLink(tabid); 
+                       // addShowCodeBtn(tabid); 
+                       // addFrameSkinLink(tabid); 
                     }
                 });
             }
-            function addShowCodeBtn(tabid)
-            {
-                var viewSourceBtn = $('<a class="viewsourcelink" href="javascript:void(0)">查看源码</a>');
-                var jiframe = $("#" + tabid);
-                viewSourceBtn.insertBefore(jiframe);
-                viewSourceBtn.click(function ()
-                {
-                    showCodeView(jiframe.attr("src"));
-                }).hover(function ()
-                {
-                    viewSourceBtn.addClass("viewsourcelink-over");
-                }, function ()
-                {
-                    viewSourceBtn.removeClass("viewsourcelink-over");
-                });
-            }
-            function showCodeView(src)
-            {
-                $.ligerDialog.open({
-                    title : '源码预览',
-                    url: 'dotnetdemos/codeView.aspx?src=' + src,
-                    width: $(window).width() *0.9,
-                    height: $(window).height() * 0.9
-                });
-
-            }
+           
+           
             function addFrameSkinLink(tabid)
             {
                 var prevHref = getLinkPrevHref(tabid) || "";
@@ -181,7 +158,7 @@
             }
             function saveTabStatus()
             { 
-                $.cookie('liger-home-tab', JSON2.stringify(tabItems));
+                //$.cookie('liger-home-tab', JSON2.stringify(tabItems));
             }
             function css_init()
             {
@@ -315,7 +292,7 @@
         </div>
         <div position="center" id="framecenter"> 
             <div tabid="home" title="我的主页" style="height:300px" >
-                <iframe frameborder="0" name="home" id="home" src="welcome.htm"></iframe>
+                <iframe frameborder="0" name="home" id="home" src=""></iframe>
             </div> 
         </div> 
         

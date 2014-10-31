@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szreach.mediacenter.auth.usergroup.dao.UserGroupDao">
+	<resultMap type="UserGroupBean" id="userGroupMap">
+		<id property="id" column="id"></id>
+		<result property="userGroupName" column="user_group_name"></result>
+		<result property="createTime" column="create_time"/>
+	</resultMap>
+	<select id="getByID" parameterType="string" resultMap="userGroupMap">
+		<![CDATA[ 
+		SELECT * from tb_usergroup  WHERE id = #{id}
+		]]>
+	</select>
+	
+	<insert id="insert" parameterType="UserGroupBean">
+		insert into tb_usergroup(id, user_group_name, create_time) values(
+		   #{id},
+		   #{userGroupName},
+		   #{createTime}
+		)
+	</insert>
+	<update id="update" parameterType="UserGroupBean">
+		update tb_usergroup set user_group_name=#{userGroupName}
+		WHERE id = #{id}
+	</update>
+	
+	<select id="count" resultType="int">
+        select count(*) c from tb_usergroup
+           <where>
+        	<if test="userGroupName != null and userGroupName != ''">
+        		and user_group_name like "%"#{userGroupName}"%"
+        	</if>
+        	
+        </where>
+    </select>
+    
+    <select id="query" parameterType="UserGroupBean" resultMap="userGroupMap" >
+        select *  from tb_usergroup
+        <where>
+        	<if test="userGroupName != null and userGroupName != ''">
+        		and user_group_name like "%"#{userGroupName}"%"
+        	</if>
+        	
+        </where>
+        <if test="endIndex > 0">
+        		limit #{beginIndex}, #{endIndex}
+        	</if>
+    </select>
+    <delete id="delete" parameterType="string">
+    	delete from tb_usergroup where id=#{id}
+    </delete>
+   
+</mapper> 
