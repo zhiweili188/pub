@@ -10,23 +10,17 @@
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">    
 	    <property name="dataSource" ref="dataSource" />    
-	    <property name="configLocation" value="/WEB-INF/mybatis-config/sqlMapConfig.xml" />
+	    <property name="configLocation" value="/WEB-INF/mybatis-config/sqlMapConfig.xml" />  
 	</bean>    
 	
 	<!-- mapper bean -->    
-	<bean id="menuDao" class="org.mybatis.spring.mapper.MapperFactoryBean">    
+	<!-- <bean id="menuDao" class="org.mybatis.spring.mapper.MapperFactoryBean">    
 	    <property name="mapperInterface" value="com.szreach.mediacenter.auth.menu.dao.MenuDao" />    
 	    <property name="sqlSessionFactory" ref="sqlSessionFactory" />    
-	</bean> 
-	
-	<!-- mapper bean -->    
-	<bean id="userGroupDao" class="org.mybatis.spring.mapper.MapperFactoryBean">    
-	    <property name="mapperInterface" value="com.szreach.mediacenter.auth.usergroup.dao.UserGroupDao" />    
-	    <property name="sqlSessionFactory" ref="sqlSessionFactory" />    
-	</bean> 
-	<!-- mapper bean -->    
-	<bean id="roleDao" class="org.mybatis.spring.mapper.MapperFactoryBean">    
-	    <property name="mapperInterface" value="com.szreach.mediacenter.auth.role.dao.RoleDao" />    
-	    <property name="sqlSessionFactory" ref="sqlSessionFactory" />    
-	</bean> 
+	</bean>  -->
+	 <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+       <property name="basePackage" value="com.szreach.mediacenter.auth" />
+       <property name="markerInterface" value="com.szreach.mediacenter.common.base.MapperMarker"/>
+       <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
 </beans>

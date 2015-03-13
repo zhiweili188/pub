@@ -14,35 +14,10 @@
         http://www.springframework.org/schema/tx   
         http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
-<bean 
- class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-  <property name="messageConverters"> 
-  <list> 
-   <bean 
-    class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
-    <bean 
-    class="org.springframework.http.converter.StringHttpMessageConverter"> 
-    <property name="supportedMediaTypes"> 
-     <list> 
-      <value>text/plain;charset=UTF-8</value> 
-     </list> 
-    </property> 
-   </bean> 
-   <bean 
-    class="org.springframework.http.converter.ResourceHttpMessageConverter" /> 
-   <bean 
-    class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
-    <bean 
-    class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter" />
-    <bean 
-    class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter" />
-   </list> 
- </property> 
-</bean>
 	<mvc:annotation-driven />
 	<context:component-scan base-package="com.szreach.mediacenter.auth" >
-		 <!-- <context:exclude-filter type="annotation"
-            expression="org.springframework.stereotype.Service" /> -->
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:exclude-filter type="annotation"  expression="org.springframework.stereotype.Service" />
 	</context:component-scan>
 
 	<bean
@@ -93,4 +68,40 @@
 	<mvc:interceptors>
 		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"></bean>
 	</mvc:interceptors>
+	
+		<!-- <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		定义默认的异常处理页面，当该异常类型的注册时使用
+		<property name="defaultErrorView" value="error"></property>
+		定义异常处理页面用来获取异常信息的变量名，默认名为exception
+		<property name="exceptionAttribute" value="ex"></property>
+		定义需要特殊处理的异常，用类名或完全路径名作为key，异常也页名作为值
+		<property name="exceptionMappings">
+			<props>
+				<prop key="com.szreach.mediacenter.auth.test.ex.BusinessException">error-business</prop>
+				<prop key="com.szreach.mediacenter.auth.test.ex.ParameterException">error-parameter</prop>
+
+				这里还可以继续扩展对不同异常类型的处理
+			</props>
+		</property>
+	</bean> -->
+	<!-- <bean id="exceptionHandler" class="com.szreach.mediacenter.auth.test.ex.MyExceptionHandler"></bean> -->
+	
+	  <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 对所有的请求拦截使用/** ,对某个模块下的请求拦截使用：/myPath/* -->
+            <mvc:mapping path="/**" />
+              <bean id="officeHoursInterceptor"
+		            class="com.szreach.mediacenter.auth.function.action.TimeBasedAccessInterceptor">
+		        <property name="openingTime" value="8"/>
+		        <property name="closingTime" value="19"/>
+		    </bean>
+        </mvc:interceptor>
+        
+         <mvc:interceptor>
+            <!-- 对所有的请求拦截使用/** ,对某个模块下的请求拦截使用：/myPath/* -->
+            <mvc:mapping path="/**" />
+              <bean id="loginIntercepter" class="com.szreach.mediacenter.auth.intercepters.LoginIntercepter">
+		    </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>  

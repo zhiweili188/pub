@@ -10,6 +10,6 @@ package com.szreach.mediacenter.common.base;
  * @Date: 2014-3-7
  * @Version: 1.0
  */
-public class BaseAction {
+public abstract class BaseAction {
 
 }

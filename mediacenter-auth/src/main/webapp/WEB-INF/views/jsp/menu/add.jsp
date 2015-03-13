@@ -56,7 +56,7 @@
                 {
                     $("form .l-text,.l-textarea").ligerHideTip();
                     $(form).ajaxSubmit(); 
-                    alert("Submitted!")
+                    grid.reload();
                 }
             });
             $("form").ligerForm();

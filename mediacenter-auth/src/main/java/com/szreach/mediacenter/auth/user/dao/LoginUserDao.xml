@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szreach.mediacenter.auth.user.dao.LoginUserDao">
+	<resultMap type="LoginUser" id="loginUserMap">
+		<id property="id" column="id"></id>
+		<result property="userName" column="user_name"></result>
+		<result property="fullName" column="full_name" />
+		<result property="firstLetter" column="first_letter" />
+		<result property="password" column="passwd" />
+		<result property="registerTime" column="register_time" />
+		<result property="roleType" column="role_type"  javaType="int" jdbcType="INTEGER"/>
+		<result property="userType" column="user_type"  javaType="int" jdbcType="INTEGER"/>
+		<result property="level" column="level"  javaType="int" jdbcType="INTEGER"/>
+	</resultMap>
+	<select id="get" parameterType="int" resultMap="loginUserMap">
+		<![CDATA[ 
+		SELECT * from td_login_user  WHERE id = #{id}
+		]]>
+	</select>
+	
+	<insert id="insert" parameterType="LoginUser" useGeneratedKeys="true" keyProperty="id">
+		insert into td_login_user(id, user_name, full_name,first_letter,passwd,role_type,user_type,level,register_time) values(
+		   #{id}, #{userName}, #{fullName}, #{firstLetter},#{password},
+		   #{roleType},#{userType},#{level},#{registerTime}
+		)
+	</insert>
+	<update id="update" parameterType="LoginUser">
+		update td_login_user set user_name=#{userName},  
+		full_name=#{fullName},  first_letter=#{firstLetter},
+		passwd=#{password},  role_type=#{roleType},
+		user_type=#{userType},  level=#{level},
+		register_time=#{registerTime}
+		WHERE id = #{id}
+	</update>
+	
+	<select id="countAll" resultType="int">
+        select count(*) c from td_login_user;
+    </select>
+    
+    <select id="query"  resultMap="loginUserMap" >
+        select *  from td_login_user
+        <where>
+        	<if test="query.userName != null">
+        		and user_name like "%"#{userName}"%"
+        	</if>
+        	<if test="query.fullName != null">
+        		and full_name like "%"#{fullName}"%"
+        	</if>
+        	
+        </where>
+        <if test="page != null">
+        		limit #{page.beginIndex}, #{page.endIndex}
+        	</if>
+    </select>
+    <delete id="delete" parameterType="int">
+    	delete from td_login_user where id=#{id}
+    </delete>
+</mapper> 

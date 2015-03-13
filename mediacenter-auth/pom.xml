@@ -195,9 +195,15 @@
 		</dependency>
 
 	<dependency>
+		<groupId>jstl</groupId>
+		<artifactId>jstl</artifactId>
+		<version>1.2</version>
+	</dependency> 
+
+	<dependency>
 		<groupId>com.szreach.mediacenter</groupId>
 	  <artifactId>mediacenter-common</artifactId>
-	  <version>1.2</version>
+	  <version>1.0</version>
 	</dependency>
 	</dependencies>
 

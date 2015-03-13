@@ -1,0 +1,10 @@
+#searchbar{
+       border: 1px solid #cecece;
+     padding: 3px 10px;
+}
+#searchbar table{
+   border: 0;
+}
+#searchbar table td{
+   padding: 0 5px;
+}

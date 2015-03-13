@@ -5,6 +5,7 @@
 package com.szreach.mediacenter.auth.menu.bean;
 
 import com.szreach.mediacenter.common.base.PageBean;
+import com.szreach.mediacenter.common.base.Persistentable;
 
 /**
  * @Description:
@@ -12,7 +13,7 @@ import com.szreach.mediacenter.common.base.PageBean;
  * @Date: 2014-3-7
  * @Version: 1.0
  */
-public class MenuBean extends PageBean {
+public class MenuBean  extends Persistentable {
 
 	private String id;
 	private String menuName;

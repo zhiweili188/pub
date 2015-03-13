@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.szreach.mediacenter.auth.menu.bean.MenuBean;
@@ -23,6 +24,7 @@ import com.szreach.mediacenter.common.util.M;
  */
 @Service("menuService")
 @Scope("prototype")
+@Transactional
 public class MenuService implements IMenuService{
 	@Autowired
 	MenuDao menuDao;
@@ -54,12 +56,10 @@ public class MenuService implements IMenuService{
 	}
 	
 	public void delete(String menuId){
-		if(menuId != null && !"".equals(menuId)) {
-			String[] ids = menuId.split(",");
-			for(String id: ids) {
-				
-				menuDao.delete(id);
-			}
+		String[] ids = menuId.split(",");
+		for(String id:ids) {
+			
+			menuDao.delete(id);
 		}
 	}
 
@@ -70,7 +70,6 @@ public class MenuService implements IMenuService{
 	
 	public List<MenuBean> queryMenu(MenuBean query) {
 		int total = menuDao.count();
-		query.setTotal(total);
 		List<MenuBean> list = menuDao.queryMenu(query);
 		return list;
 	}
