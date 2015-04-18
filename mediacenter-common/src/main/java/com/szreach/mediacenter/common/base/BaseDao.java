@@ -6,6 +6,8 @@ package com.szreach.mediacenter.common.base;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 /**
  * @Description:
  * @author lizhiwei
@@ -19,10 +21,12 @@ public interface BaseDao<T extends Persistentable> extends MapperMarker {
 	void delete(Integer id);
 	T get(Integer id);
 	void update(T model);
-	int countAll();
 	
 	List<T> findAll();
 	List<T> query(T model);
 	
 	List<Integer> findAllIds();
+	
+	public int countAll(@Param("query") T query);
+	public List<T> query(@Param("query") T query, @Param("page")  PageBean page);
 }

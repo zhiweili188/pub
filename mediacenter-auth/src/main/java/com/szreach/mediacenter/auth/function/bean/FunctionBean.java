@@ -4,21 +4,16 @@
  */
 package com.szreach.mediacenter.auth.function.bean;
 
+import com.szreach.mediacenter.common.base.Persistentable;
+
 /**
  * @Description:
  * @author lizhiwei
  * @Date: 2014-12-30
  * @Version: 1.0
  */
-public class FunctionBean {
-	private int id=0;
+public class FunctionBean extends Persistentable {
 	private String name;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getName() {
 		return name;
 	}

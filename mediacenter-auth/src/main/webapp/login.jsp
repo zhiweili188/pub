@@ -5,12 +5,54 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="/auth/js/easyui/jquery.min.js" type="text/javascript"></script>
+<script src="/auth/js/easyui/jquery.easyui.min.js" type="text/javascript"></script>
+<script src="/auth/js/easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
+<script src="/auth/js/jquery.serializeJson.js" type="text/javascript"></script>
+<link href="/auth/js/easyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
+<link href="/auth/js/easyui/themes/icon.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<form action="/auth/login/index.do" method="post">
-	用户名：<input type="text" name="username" maxlength="20">
-	密码：<input type="password" name="password" maxlength="50">
-	<input type="submit" value="登录">
-</form>
+<div style="margin:200px 400px;">
+	<div class="easyui-panel" title="登录" style="width:400px;">
+		<div style="padding:10px 60px 20px 60px">
+	    <form id="ff" class="easyui-form" method="post" action="/auth/login/ajaxLogin.do" data-options="novalidate:true">
+	    	<table cellpadding="5">
+	    		<tr>
+	    			<td>用户名:</td>
+	    			<td><input class="easyui-textbox" type="text" name="userName" data-options="required:true"></input></td>
+	    		</tr>
+	    		<tr>
+	    			<td>密码:</td>
+	    			<td><input class="easyui-textbox" type="password" name="password" data-options="required:true"></input></td>
+	    		</tr>
+	    	</table>
+	    </form>
+	    <div style="text-align:center;padding:5px">
+	    	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">确定</a>
+	    	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">取消</a>
+	    </div>
+	    </div>
+	</div>
+</div>
 </body>
+<script>
+	function submitForm(){
+		$('#ff').form('submit',{
+			onSubmit:function(){
+				return $(this).form('enableValidation').form('validate');
+			},
+		    success:function(data){
+		       if(data == "0") {
+		    	   
+		       } else {
+		    	   
+		       }
+		    }
+		});
+	}
+	function clearForm(){
+		$('#ff').form('clear');
+	}
+</script>
 </html>

@@ -11,5 +11,15 @@ package com.szreach.mediacenter.common.base;
  * @Version: 1.0
  */
 public abstract class Persistentable {
+	private Integer id;
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	
 }

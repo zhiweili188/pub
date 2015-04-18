@@ -16,14 +16,8 @@ import com.szreach.mediacenter.common.base.BaseDao;
  * @Version: 1.0
  */
 public interface MenuDao  extends BaseDao<MenuBean>{
-
-	public void insertMenu(MenuBean menu);
-	public MenuBean getMenuByID(String menuId);
-	public void updateMenu(MenuBean menu);
+	//public int countAll(@Param("query") MenuBean query);
+	//public List<MenuBean> query(@Param("query") MenuBean query, @Param("page")  PageBean page);
+	public List<MenuBean> queryTree();
 	
-	public int count();
-	
-	public List<MenuBean> queryMenu(MenuBean query);
-	
-	public void delete(String menuId);
 }

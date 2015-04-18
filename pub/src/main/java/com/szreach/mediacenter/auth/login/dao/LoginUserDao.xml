@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szreach.mediacenter.auth.login.dao.LoginUserDao">
+	<resultMap type="com.szreach.mediacenter.auth.login.bean.LoginUser" id="loginUserMap">
+		<id property="id" column="id"></id>
+		<result property="userName" column="USERNAME"></result>
+		<result property="fullName" column="FULLNAME" />
+		<result property="firstLetter" column="FIRST_LETTER" />
+		<result property="password" column="PASSWD" />
+		<result property="registerTime" column="REGISTERTIME" />
+		<result property="roleType" column="ROLETYPE"  javaType="int" jdbcType="INTEGER"/>
+		<result property="userType" column="USERTYPE"  javaType="int" jdbcType="INTEGER"/>
+		<result property="level" column="LEVEL"  javaType="int" jdbcType="INTEGER"/>
+	</resultMap>
+	<select id="get" parameterType="string" resultMap="loginUserMap">
+		<![CDATA[ 
+		SELECT * from USERS  WHERE id = #{id}
+		]]>
+	</select>
+	
+	
+		<update id="updatePwd" parameterType="com.szreach.mediacenter.auth.login.bean.LoginUser">
+		update USERS set  
+		passwd=#{password}
+		WHERE id = #{id}
+	</update>
+	
+	
+</mapper> 

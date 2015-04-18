@@ -20,5 +20,9 @@ import com.szreach.mediacenter.common.base.PageBean;
  */
 public interface LoginUserDao extends BaseDao<LoginUser> {
 
-public List<LoginUser> query(@Param("query") LoginUser query, @Param("page")  PageBean page);
+	//public int countAll(@Param("query") LoginUser query);
+	//public List<LoginUser> query(@Param("query") LoginUser query, @Param("page")  PageBean page);
+	public void updatePwd(LoginUser user);
+	public void batchDel(List<Integer> idList);
+	public LoginUser getByUserName(String userName);
 }

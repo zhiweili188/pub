@@ -1,0 +1,334 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+       <%@ include file="/WEB-INF/views/jsp/common.jsp" %>
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Bootstrap 101 Template</title>
+
+
+    <style type="text/css">
+    
+    	
+    </style>
+  </head>
+<body> 
+<div   class ="container"> 
+<jsp:include page="../nav.jsp"></jsp:include>
+
+	 <div   class ="row"> 
+	 <div   class ="col-md-2"> </div>
+	 	<div   class ="col-md-8"> 
+	 		<div   class ="panel panel-primary"> 
+                    <div   class ="panel-heading"> 
+                        <h3   class ="panel-title"><strong > 用户注册</strong ></h3 > 
+                    </div > 
+                    <div   class ="panel-body">  
+						<div   class ="alert alert-danger alert-dismissable hidden">   
+					      <button   type ="button"   class ="close"   data-dismiss ="alert"   aria-hidden ="true"> &times; </button >   
+					      <strong> 注意! </strong > 本站查询的分数来源于12333官网，详情请到官网咨询
+					
+					  </div >
+					   <form    name ="form1" method="post" class="form-horizontal">  
+					   		<div class="form-group">
+							    <label for="userName" class="col-sm-3 control-label">用户名</label>
+							     <div class="col-sm-5">
+							    	<input type="text" class="form-control "  id="userName" name="userName" placeholder="用户名" check-type="required" required-message="请输入用户名。">
+							    </div>
+						  	</div> 
+					  	  <div class="form-group">
+							    <label for="inputPassword1" class="col-sm-3 control-label">密码</label>
+							    <div class="col-sm-5">
+							      <input type="password" class="form-control" id="inputPassword1" name="passwd" placeholder="密码" check-type="required" required-message="请输入密码。">
+							    </div>
+						  </div>
+					  	  <div class="form-group">
+							    <label for="inputPassword2" class="col-sm-3 control-label">密码确认</label>
+							    <div class="col-sm-5">
+							      <input type="password" class="form-control" id="inputPassword2" placeholder="密码确认" check-type="required" required-message="请再次确认密码。">
+							    </div>
+						  </div>
+						  
+						  <div class="form-group">
+							    <label for="fullName" class="col-sm-3 control-label">姓名</label>
+							     <div class="col-sm-5">
+							    	<input type="text" class="form-control "  id="fullName" name="fullName" placeholder="张三" check-type="required" required-message="请输入真实姓名。">
+							    </div>
+						  	</div> 
+						  	
+						  	<div class="form-group">
+						  		 <label class="col-sm-3 control-label">性别</label>
+							  <label  class="radio-inline ">
+							    <input type="radio" name="sex" id="sex1" value="0" checked>
+							    男
+							  </label>
+
+							  <label  class="radio-inline">
+							    <input type="radio" name="sex" id="sex2" value="1">
+							    女
+							  </label>
+							</div>
+						  	
+						  	<div class="form-group">
+							    <label for="exampleInputName2" class="col-sm-3 control-label">出生年月</label>
+							      <div class="col-sm-5">
+								     <div class="input-group date form_date" data-date="" data-date-format="dd/mm/yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+					                    <input class="form-control" size="16" type="text" value="" readonly>
+					                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+										<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+					                </div>
+									<input type="hidden" id="dtp_input2" name="birthday" value=""  check-type="required" required-message="请选择出生年月。"/>
+				                </div>
+						  	</div> 
+						  	
+							<div class="form-group">
+							    <label for="company" class="col-sm-3 control-label">所在单位</label>
+							    <div class="col-sm-5">
+							      <input type="text" class="form-control" id="company" name="company" placeholder="所在单位" check-type="required" required-message="请输入工作单位。">
+							    </div>
+						  </div>
+							<div class="form-group">
+							    <label for="department" class="col-sm-3 control-label">所在部门/科室</label>
+							    <div class="col-sm-5">
+							      <input type="text" class="form-control" id="department"  name="department" placeholder="所在部门/科室" check-type="required" required-message="请输入所在部门或科室。">
+							    </div>
+						  </div>
+							<div class="form-group">
+							    <label for="educationBackground" class="col-sm-3 control-label">学历</label>
+							    <div class="col-sm-4">
+							      <select class="form-control" id="educationBackground" name="educationBackground" check-type="required" required-message="请选择学历。">
+								  <option>1</option>
+								  <option>2</option>
+								  <option>3</option>
+								  <option>4</option>
+								  <option>5</option>
+								</select>
+							    </div>
+						  </div>
+						<div   class ="form-group">   
+				            <label   for ="IDCard" class="col-sm-3 control-label"> 身份证号码 </label >   
+				            <div class="col-sm-4">
+				                <input   type ="text"   class ="form-control"   id ="IDCard"   name ="idCardNo"   placeholder ="身份证号码"   check-type="required" required-message="请输入身份证号码。">   
+				            </div >   
+				        </div >   
+							<div class="form-group">
+							    <label for="mobile" class="col-sm-3 control-label">手机</label>
+							    <div class="col-sm-4">
+							      <input type="email" class="form-control" id="mobile" name="mobile" placeholder="手机" check-type="required" required-message="请输入手机号码。">
+							    </div>
+						  </div>
+							<div class="form-group">
+							    <label for="email" class="col-sm-3 control-label">Email</label>
+							    <div class="col-sm-4">
+							      <input type="email" class="form-control" id="email" name="email" placeholder="Email" check-type="required" required-message="请输入电子邮箱。">
+							    </div>
+						  </div>
+							<div class="form-group">
+							    <label for="type" class="col-sm-3 control-label">类别</label>
+							     <div class="col-sm-4">
+							      <select class="form-control" id="type" name="type" check-type="required" required-message="请选择类别。">
+								
+								</select>
+							    </div>
+						  </div>
+						<div class="form-group">
+							    <label for="title" class="col-sm-3 control-label">职称</label>
+							     <div class="col-sm-4">
+							      <select class="form-control" id="title" name="title" check-type="required" required-message="请选择职称。">
+								
+								</select>
+							    </div>
+						 </div>
+						<div class="form-group">
+						  		 <label class="col-sm-3 control-label">身份</label>
+							  <label  class="radio-inline ">
+							    <input type="radio" name="identityRadios" id="identity1" value="0" checked>
+							   本院职工
+							  </label>
+
+							  <label  class="radio-inline">
+							    <input type="radio" name="identityRadios" id="identity2" value="1">
+							    院外人员
+							  </label>
+						</div>
+				      <div class="form-group" style="display: none;" id="identity-div">
+				      			<label class="col-sm-3 control-label"></label>
+							     <div class="col-sm-4">
+							      <select class="form-control" id="identity" name="identity" >
+								
+								</select>
+							    </div>
+						  </div>
+				     <div class="form-group">
+					    <div class="col-sm-offset-2 col-sm-10">
+					      <button type="submit" class="btn btn-primary">确&nbsp;&nbsp;认</button>
+					      <button type="button" class="btn btn-default">取&nbsp;&nbsp;消</button>
+					    </div>
+					  </div>
+
+				       
+				    </form >   
+				    <div   class ="alert alert-danger alert-dismissable hidden">   
+				        <button   type ="button"   class ="close"   data-dismiss ="alert"   aria-hidden ="true"> &times; </button >   
+				        <strong> 注意! </strong> 没有查到成绩，请检查身份证号码和科目后，再次查询  
+				   </div>    
+
+                    </div >   
+                </div >   
+	 	</div>
+	 </div>
+</div>   
+
+ 
+    <script type="text/javascript" src="${ctx }/datetimepicker/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="${ctx }/datetimepicker/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="${ctx }/js/bootstrap3-validation.js" charset="UTF-8"></script>
+	<script type="text/javascript">
+	$('.form_date').datetimepicker({
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+    });
+	 $(function(){
+		   //1. 简单写法：
+		   $("form").validation();
+		   $("form").attr("action", "${ctx}/usrreg/register.do");
+		   $("button[type='submit']").on('click',function(event){
+		     // 2.最后要调用 valid()方法。
+		     if ($("form").valid(this,"error!")==false){
+		       //$("#error-text").text("error!"); 1.0.4版本已将提示直接内置掉，简化前端。
+		       return false;
+		     }
+		     $("form").submit();
+		   }); 
+		   
+		   //设置学历下拉框的内容
+		   $.ajax({
+	            type: "get",//使用get方法访问后台
+	            dataType: "json",//返回json格式的数据
+	            url: "${ctx}/edu/json.do",//要访问的后台地址
+	            data: null,//要发送的数据
+	            complete :function(){},//AJAX请求完成时隐藏loading提示
+	            success: function(data){//msg为返回的数据，在这里做数据绑定
+	            	var html="<option value=''>请选择</option>";
+                          $.each(data, function(index, json) {
+                            	html += "<option value='" + json.key + "'>" + json.value + "</option>";
+                         });
+                          $("#educationBackground").html(html);
+	            }
+	       });
+		   //设置类别下拉框的内容
+		   $.ajax({
+	            type: "get",//使用get方法访问后台
+	            dataType: "json",//返回json格式的数据
+	            url: "${ctx}/utt/json.do",//要访问的后台地址
+	            data: null,//要发送的数据
+	            complete :function(){},//AJAX请求完成时隐藏loading提示
+	            success: function(data){//msg为返回的数据，在这里做数据绑定
+	            	var html="<option value=''>请选择</option>";
+                          $.each(data, function(index, json) {
+                            	html += "<option value='" + json.key + "'>" + json.value + "</option>";
+                         });
+                          $("#type").html(html);
+	            }
+	       });
+		   
+		   //改变类别的时候，要改变职称和身份下拉框的内容
+		   $("#type").change(function(){
+			   var selectValue = $("#type").val();
+			   var param = "type="+selectValue;
+			   $.ajax({
+		            type: "get",//使用get方法访问后台
+		            dataType: "json",//返回json格式的数据
+		            url: "${ctx}/ut/json.do",//要访问的后台地址
+		            data: param,//要发送的数据
+		            complete :function(){},//AJAX请求完成时隐藏loading提示
+		            success: function(data){//msg为返回的数据，在这里做数据绑定
+		            	var html="<option value=''>请选择</option>";
+	                          $.each(data, function(index, json) {
+	                            	html += "<option value='" + json.key + "'>" + json.value + "</option>";
+	                         });
+	                          $("#title").html(html);
+		            }
+		       });
+			   
+			   if($("input[name='identityRadios']:checked").val() == 0){
+				   var html="<option value=''>请选择</option>";
+				   $("#identity").html(html);
+				   $("#identity-div").css("display","none");
+			   } else {
+				   var selectValue = $("#type").val();
+				   if(selectValue == "-1") {
+					   var html="<option value=''>请选择</option>";
+					   $("#identity").html(html);
+					   $("#identity-div").css("display","");
+					   return true;
+				   }
+				   var param = "type="+selectValue;
+				   $.ajax({
+			            type: "get",//使用get方法访问后台
+			            dataType: "json",//返回json格式的数据
+			            url: "${ctx}/ui/json.do",//要访问的后台地址
+			            data: param,//要发送的数据
+			            complete :function(){},//AJAX请求完成时隐藏loading提示
+			            success: function(data){//msg为返回的数据，在这里做数据绑定
+			            	var html="<option value=''>请选择</option>";
+		                          $.each(data, function(index, json) {
+		                            	html += "<option value='" + json.key + "'>" + json.value + "</option>";
+		                         });
+		                          $("#identity").html(html);
+			            }
+			       });
+				   
+				   $("#identity-div").css("display","");
+				   }
+			   
+		   });
+		   
+		   //身份单选框点击事件
+		   $("input[name='identityRadios']").click(function(){
+			   if($(this).val() == 0){
+				   var html="<option value=''>请选择</option>";
+				   $("#identity").html(html);
+				   $("#identity-div").css("display","none");
+			   } else {
+				   
+			   var selectValue = $("#type").val();
+			   if(selectValue == "-1") {
+				   var html="<option value=''>请选择</option>";
+				   $("#identity").html(html);
+				   $("#identity-div").css("display","");
+				   return true;
+			   }
+			   var param = "type="+selectValue;
+			   $.ajax({
+		            type: "get",//使用get方法访问后台
+		            dataType: "json",//返回json格式的数据
+		            url: "${ctx}/ui/json.do",//要访问的后台地址
+		            data: param,//要发送的数据
+		            complete :function(){},//AJAX请求完成时隐藏loading提示
+		            success: function(data){//msg为返回的数据，在这里做数据绑定
+		            	var html="<option value=''>请选择</option>";
+	                          $.each(data, function(index, json) {
+	                            	html += "<option value='" + json.key + "'>" + json.value + "</option>";
+	                         });
+	                          $("#identity").html(html);
+		            }
+		       });
+			   
+			   $("#identity-div").css("display","");
+			   }
+		   });
+   });
+</script>
+  </body>
+</html>

@@ -7,7 +7,7 @@
 </head>
 <body>
 <script type="text/javascript">
-top.window.location.href="/auth";
+top.window.location.href="/auth/login/tologin.do";
 </script>
 </body>
 </html>

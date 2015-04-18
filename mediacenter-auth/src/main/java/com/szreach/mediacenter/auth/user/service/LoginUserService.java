@@ -16,15 +16,18 @@ import com.szreach.mediacenter.common.base.PageBean;
  * @Date: 2015-3-11
  * @Version: 1.0
  */
-public interface LoginUserService extends BaseService {
-	public void insertLoginUser(LoginUser user);
-	public LoginUser getLoginUserByID(Integer loginUserId);
-	public void updateLoginUser(LoginUser user);
+public interface LoginUserService extends BaseService<LoginUser> {
+	//public void insertLoginUser(LoginUser user);
+	//public LoginUser getLoginUserByID(Integer loginUserId);
+	public LoginUser getByUserName(String userName);
 	
-	public int count();
+	//public void updateLoginUser(LoginUser user);
+	public void updatePwd(LoginUser user);
+	
+	//public int count(LoginUser query);
 	
 	public List<LoginUser> query(LoginUser query);
-	public List<LoginUser> query(LoginUser query, PageBean page);
+	//public List<LoginUser> query(LoginUser query, PageBean page);
 	
-	public void delete(Integer loginUserId);
+	public void deleteMore(String loginUserIds);
 }

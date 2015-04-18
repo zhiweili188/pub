@@ -5,6 +5,9 @@
 		<typeAlias type="com.szreach.mediacenter.auth.menu.bean.MenuBean" alias="MenuBean" />
 		<typeAlias type="com.szreach.mediacenter.auth.site.bean.SiteBean" alias="SiteBean" />
 		<typeAlias type="com.szreach.mediacenter.auth.user.bean.LoginUser" alias="LoginUser" />
+		<typeAlias type="com.szreach.mediacenter.auth.role.bean.Role" alias="Role" />
+		<typeAlias type="com.szreach.mediacenter.auth.room.bean.Room" alias="Room" />
+		<typeAlias type="com.szreach.mediacenter.auth.department.bean.Department" alias="Department" />
 	</typeAliases>
 <!-- 	<mappers>
 		<mapper resource="com/szreach/mediacenter/auth/menu/dao/MenuBeanMapper.xml" />

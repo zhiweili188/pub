@@ -11,7 +11,7 @@
 	
     <bean id="dataSource"  class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close" >
     	<property name="driverClassName" value="com.mysql.jdbc.Driver" /> 
-        <property name="url" value="jdbc:mysql://localhost:3306/auth?useUnicode=true&amp;characterEncoding=UTF8" />
+        <property name="url" value="jdbc:mysql://localhost:3306/auth?useUnicode=true&amp;characterEncoding=UTF8&amp;allowMultiQueries=true" />
         <property name="username" value="root" />
         <property name="password" value="szreach" />
         <property name="initialSize" value="1" />

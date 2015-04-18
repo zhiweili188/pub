@@ -11,6 +11,7 @@
 		<result property="roleType" column="role_type"  javaType="int" jdbcType="INTEGER"/>
 		<result property="userType" column="user_type"  javaType="int" jdbcType="INTEGER"/>
 		<result property="level" column="level"  javaType="int" jdbcType="INTEGER"/>
+		<result property="status" column="status"  javaType="int" jdbcType="INTEGER"/>
 	</resultMap>
 	<select id="get" parameterType="int" resultMap="loginUserMap">
 		<![CDATA[ 
@@ -25,34 +26,64 @@
 		)
 	</insert>
 	<update id="update" parameterType="LoginUser">
-		update td_login_user set user_name=#{userName},  
-		full_name=#{fullName},  first_letter=#{firstLetter},
-		passwd=#{password},  role_type=#{roleType},
-		user_type=#{userType},  level=#{level},
-		register_time=#{registerTime}
+		update td_login_user 
+			<set>
+				full_name=#{fullName},  first_letter=#{firstLetter},
+			<if test="roleType != null">
+				role_type=#{roleType},
+			</if>
+			<if test="userType != null">
+				user_type=#{userType}, 
+			</if>
+			<if test="level != null">
+				level=#{level}, 
+			</if>
+			
+			</set>
+		
 		WHERE id = #{id}
 	</update>
 	
+		<update id="updatePwd" parameterType="LoginUser">
+		update td_login_user set  
+		passwd=#{password}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="batchDel"  parameterType="java.util.List" >
+		<foreach collection="list" item="id" index="idx"  open="" close=";" separator=";">
+			update td_login_user set status=9 where id=${id}
+		</foreach>
+	</update>
+	<update id="delete"  parameterType="int" >
+			update td_login_user set status=9 where id=#{id}
+	</update>
+	
 	<select id="countAll" resultType="int">
-        select count(*) c from td_login_user;
+        select count(*) c from td_login_user
+         <include refid="searchCondition"></include>
     </select>
     
     <select id="query"  resultMap="loginUserMap" >
         select *  from td_login_user
-        <where>
-        	<if test="query.userName != null">
-        		and user_name like "%"#{userName}"%"
-        	</if>
-        	<if test="query.fullName != null">
-        		and full_name like "%"#{fullName}"%"
-        	</if>
-        	
-        </where>
+        <include refid="searchCondition"></include>
         <if test="page != null">
         		limit #{page.beginIndex}, #{page.endIndex}
         	</if>
     </select>
-    <delete id="delete" parameterType="int">
-    	delete from td_login_user where id=#{id}
-    </delete>
+    
+    <sql id="searchCondition" >
+    	<where>
+        	<if test="query.userName != null">
+        		and user_name like "%"#{query.userName}"%"
+        	</if>
+        	<if test="query.fullName != null">
+        		and full_name like "%"#{query.fullName}"%"
+        	</if>
+        	
+        </where>
+    </sql>
+    <select id="getByUserName" parameterType="string" resultMap="loginUserMap">
+    	SELECT * from td_login_user  WHERE user_name = #{userName}
+    </select>
 </mapper> 

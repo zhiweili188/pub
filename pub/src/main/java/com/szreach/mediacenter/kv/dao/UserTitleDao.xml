@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szreach.mediacenter.kv.dao.UserTitleDao">
+	<resultMap type="com.szreach.mediacenter.kv.bean.UserTitle" id="UserTitleMap">
+		<id property="key" column="key"></id>
+		<result property="value" column="value"></result>
+		<result property="type" column="type"></result>
+
+	</resultMap>
+    
+    <select id="query" resultMap="UserTitleMap" >
+        select *  from user_title
+        <include refid="searchCondition"></include>
+    </select>
+    
+    <sql id="searchCondition">
+    	<where>
+        	<if test="type != null">
+        		and type = #{type}
+        	</if>
+        	
+        </where>
+    </sql>
+   
+	
+</mapper> 

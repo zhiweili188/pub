@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szreach.mediacenter.auth.login.dao.LoginDao">
+	<resultMap type="MenuBean" id="MenuMap">
+		<id property="id" column="id"></id>
+		<result property="menuName" column="menu_name"></result>
+		<result property="menuOrder" column="menu_order"  javaType="int" jdbcType="INTEGER"/>
+		<result property="menuAction" column="menu_action"></result>
+		<result property="menuLevel" column="menu_level"  javaType="int" jdbcType="INTEGER"/>
+		<result property="parentID" column="parent_id"></result>
+		<result property="menuIcon" column="menu_icon"></result>
+		<result property="menuStatus" column="menu_status"  javaType="int" jdbcType="INTEGER"/>
+	</resultMap>
+	
+	<resultMap type="MenuBean" id="treeMap">
+		<id property="id" column="id"></id>
+		<result property="menuName" column="p_menu_name"></result>
+		<result property="menuIcon" column="menu_icon"></result>
+		
+		<result property="childId" column="child_id"></result>
+		<result property="childMenuName" column="menu_name"></result>
+		<result property="childMenuAction" column="menu_action"></result>
+		<result property="childMenuIcon" column="menu_icon"></result>
+	</resultMap>
+	
+
+	
+	  <select id="queryMenuTree"  parameterType="int" resultMap="treeMap" >
+       SELECT DISTINCT pt.id,pt.menu_name p_menu_name,pt.menu_icon p_menu_icon, m.id child_id, m.menu_name,m.menu_action,m.menu_icon from td_privilege p
+		INNER JOIN td_menu m on p.menu_id=m.id
+		INNER JOIN td_menu pt on pt.id=m.parent_id
+		
+		where p.role_id in (
+		 SELECT role_id from td_user_role where user_id=#{userId}
+		)
+		
+		ORDER BY pt.menu_order,m.menu_order
+       
+    </select>
+</mapper> 

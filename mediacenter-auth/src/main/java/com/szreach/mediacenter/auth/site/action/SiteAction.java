@@ -36,13 +36,13 @@ import com.szreach.mediacenter.common.base.PageBean;
 @Controller
 @RequestMapping("/site")
 @Scope("prototype")
-public class SiteAction extends BaseAction {
+public class SiteAction extends BaseAction<SiteBean> {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
 	private SiteService siteService;
 	
-	@RequestMapping("/save.do")
+	/*@RequestMapping("/save.do")
 	@ResponseBody
 	public String save(SiteBean site) throws Exception {
 		if(site.getId() == null){
@@ -51,12 +51,12 @@ public class SiteAction extends BaseAction {
 			siteService.updateSite(site);
 		}
 		return "success";
-	}
+	}*/
 	
-	@RequestMapping(value="/index.do")
+	/*@RequestMapping(value="/index.do")
 	public ModelAndView index() {
 		return new ModelAndView("/site/index");
-	}
+	}*/
 	
 	@RequestMapping(value="/init_add.do")
 	public ModelAndView  initAdd(Model model) {
@@ -70,7 +70,7 @@ public class SiteAction extends BaseAction {
 		return new ModelAndView("/site/add");     
 	}
 	
-	@RequestMapping(value="/list.do")
+	/*@RequestMapping(value="/list.do")
 	@ResponseBody
 	public String  list(SiteBean query, PageBean page, Model model) {
 		List<SiteBean> list = siteService.query(query, page);
@@ -78,7 +78,7 @@ public class SiteAction extends BaseAction {
 		String json = gson.toJson(list);
 		json = "{Rows:"+json+",Total:"+page.getTotal()+"}";
 		return json;
-	}
+	}*/
 	
 	@RequestMapping(value="/del.do",  method = RequestMethod.POST)
 	public void delete(HttpServletRequest request, HttpServletResponse response) {

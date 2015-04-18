@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szreach.mediacenter.course.apply.dao.CourseApplyDao">
+	<resultMap type="com.szreach.mediacenter.course.apply.bean.Course" id="CourseMap">
+		<id property="tid" column="id"></id>
+		<result property="courseName" column="course_name"></result>
+		<result property="courseTypeName" column="cname"  />
+		<result property="courseAddress" column="course_address"></result>
+		<result property="courseMethod" column="course_method"></result>
+		<result property="hostEntity" column="host_entity"></result>
+		<result property="contactPerson" column="contact_person"></result>
+		<result property="contactTel" column="contact_tel"></result>
+		<result property="applyStartTime" column="apply_start_time"></result>
+		<result property="applyEndTime" column="apply_end_time"></result>
+		<result property="applyQuota" column="apply_quota"></result>
+		<result property="applyMethod" column="apply_method"></result>
+		
+		<collection property="detail" ofType="com.szreach.mediacenter.course.apply.bean.TrainingRoomOrderBean">
+			<result property="courseName" column="train"></result>
+			<result property="startTime" column="start_time"></result>
+			<result property="endTime" column="end_time"></result>
+		</collection>
+	</resultMap>
+    
+    <select id="query" resultMap="CourseMap" >
+       SELECT a.course_name train,a.start_time,a.end_time, c.cname, b.* from TRAINING_ROOM_ORDER a 
+		INNER JOIN train_course b on a.course_id=b.id
+		left join COURSE_TYPE c on a.course_type=c.id
+		 where b.apply_method=0 
+		ORDER BY b.id, a.start_time
+      
+    </select>
+    
+   <select id="get" parameterType="string" resultMap="CourseMap">
+		<![CDATA[ 
+		SELECT  c.cname, b.* from train_course b
+		 left join COURSE_TYPE c on b.course_type=c.id
+		  WHERE b.id = #{id}
+		]]>
+	</select>
+   
+	
+</mapper> 

@@ -13,7 +13,6 @@ import com.szreach.mediacenter.common.base.Persistentable;
  * @Version: 1.0
  */
 public class LoginUser extends Persistentable {
-	private Integer id;
 	private String userName;
 	private String fullName;
 	private String firstLetter;
@@ -22,16 +21,10 @@ public class LoginUser extends Persistentable {
 	private Integer roleType;
 	private Integer userType;
 	private Integer level;
+	private Integer status;
 	
 	private String registerTime;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	private String roleIds;
 
 	public String getUserName() {
 		return userName;
@@ -89,12 +82,28 @@ public class LoginUser extends Persistentable {
 		this.level = level;
 	}
 
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 	public String getRegisterTime() {
 		return registerTime;
 	}
 
 	public void setRegisterTime(String registerTime) {
 		this.registerTime = registerTime;
+	}
+
+	public String getRoleIds() {
+		return roleIds;
+	}
+
+	public void setRoleIds(String roleIds) {
+		this.roleIds = roleIds;
 	}
 	
 	

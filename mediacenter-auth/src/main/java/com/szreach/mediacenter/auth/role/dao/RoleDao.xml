@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szreach.mediacenter.auth.role.dao.RoleDao">
+	<resultMap type="Role" id="RoleMap">
+		<id property="id" column="id"></id>
+		<result property="roleName" column="role_name"></result>
+		<result property="roleStatus" column="role_status"></result>
+		<result property="isSys" column="is_sys"></result>
+	</resultMap>
+	<resultMap type="com.szreach.mediacenter.auth.role.bean.Privilege" id="PrivilegeMap">
+		<id property="roleId" column="role_id"></id>
+		<result property="menuId" column="menu_id"></result>
+	</resultMap>
+	
+	<select id="get" parameterType="int" resultMap="RoleMap">
+		<![CDATA[ 
+		SELECT * from td_role  WHERE id = #{id}
+		]]>
+	</select>
+	
+	<select id="getPrivilege" parameterType="int" resultMap="PrivilegeMap">
+		SELECT * from td_privilege where role_id=#{id}
+	</select>
+	<delete id="deletePrivilege" parameterType="int" >
+		delete from td_privilege where role_id=#{id}
+	</delete>
+	
+	<insert id="insert" parameterType="Role" useGeneratedKeys="true" keyProperty="id">
+		insert into td_role(id, role_name,  role_status, is_sys ) values(
+		   #{id},
+		   #{roleName},
+		   #{roleStatus},
+		   0
+		)
+	</insert>
+	<insert id="insertPrivilege" >
+		<foreach collection="list" item="id" index="idx"  open="" close=";" separator=";">
+			insert into td_privilege(role_id, menu_id) values(#{roleId}, #{id})
+		</foreach>
+		
+	</insert>
+	<update id="update" parameterType="Role">
+		update td_role set role_name=#{roleName}
+		WHERE id = #{id}
+	</update>
+	
+	<select id="countAll"  resultType="int">
+        select count(*) c from td_role
+         <include refid="searchCondition"></include>
+    </select>
+    
+    <select id="query" resultMap="RoleMap" >
+        select *  from td_role
+        <include refid="searchCondition"></include>
+         <if test="page != null">
+        		limit #{page.beginIndex}, #{page.endIndex}
+        	</if>
+    </select>
+    
+    <sql id="searchCondition">
+    	<where>
+        	<if test="query.roleName != null">
+        		and role_name like "%"#{query.roleName}"%"
+        	</if>
+        	<if test="query.roleStatus != null">
+        		and role_status = #{query.roleStatus}
+        	</if>
+        	
+        </where>
+    </sql>
+    
+    <update id="delete"  parameterType="int" >
+			update td_role set role_status=9 where id=#{id}
+	</update>
+	
+	<select id="getChoosableRoles" parameterType="int"  resultMap="RoleMap" >
+		SELECT a.* from td_role a
+		LEFT JOIN(
+		SELECT b.* from td_user_role a
+		JOIN td_role b on a.role_id=b.id where user_id=#{userId}) b on a.id=b.id where b.id is null
+	</select>
+</mapper> 
