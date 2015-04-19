@@ -13,6 +13,7 @@ import com.szreach.mediacenter.auth.login.bean.LoginUser;
 import com.szreach.mediacenter.auth.login.dao.LoginDao;
 import com.szreach.mediacenter.auth.login.dao.LoginUserDao;
 import com.szreach.mediacenter.common.base.AbstractBaseServiceImpl;
+import com.szreach.mediacenter.common.util.CommonTools;
 import com.szreach.mediacenter.st.ReturnCode;
 
 /**
@@ -38,7 +39,7 @@ public class LoginServiceImpl extends AbstractBaseServiceImpl implements LoginSe
 			result = ReturnCode.USERNAME_PASSW_ERROR;
 		} else {
 			//2.检查密码是否正确
-			if( ! loginUser.getPassword().equals(user.getPassword())) {
+			if( ! loginUser.getPasswd().equals(CommonTools.getMD5(user.getPasswd()))) {
 				result = ReturnCode.USERNAME_PASSW_ERROR;
 			} else {
 				

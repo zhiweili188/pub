@@ -4,8 +4,6 @@
  */
 package com.szreach.mediacenter.auth.login.action;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -64,9 +62,10 @@ public class LoginAction extends BaseAction {
 			returnObject =  new ReturnObject(result);     
 		} else {
 			session.setAttribute(Key.SESSION_LOGIN_USER, loginUser);
+			returnObject = new ReturnObject(ReturnCode.SUCCESS);     
+			returnObject.setReturnToUrl("/crs/courselist.do");
 		}
 		
-		returnObject = new ReturnObject(ReturnCode.SUCCESS);     
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.TEXT_PLAIN);
 
@@ -88,6 +87,26 @@ public class LoginAction extends BaseAction {
 		}
 		
 		return new ModelAndView("redirect:/crs/courselist.do");     
+	}
+	
+	@RequestMapping(value="/ajaxLogout.do")
+	@ResponseBody
+	public ResponseEntity<ReturnObject>  ajaxLogout(LoginUser user, Model model, HttpSession session) {
+		logger.debug("----ajaxLogout--------");
+		ReturnObject returnObject = null;
+		LoginUser loginUser = (LoginUser)session.getAttribute(Key.SESSION_LOGIN_USER);
+		if(loginUser != null) {
+			session.removeAttribute(Key.SESSION_LOGIN_USER);
+		}
+		
+		returnObject = new ReturnObject(ReturnCode.SUCCESS);     
+		returnObject.setReturnToUrl("/crs/courselist.do");
+		
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.TEXT_PLAIN);
+
+		return new ResponseEntity<ReturnObject>(returnObject, headers, HttpStatus.OK);
 	}
 
 }

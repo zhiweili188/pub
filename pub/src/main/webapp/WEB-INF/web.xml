@@ -5,7 +5,7 @@
 
   <display-name>Archetype Created Web Application</display-name>
    <welcome-file-list>
-   		<welcome-file>redict2login.jsp</welcome-file>
+   		<welcome-file>index.jsp</welcome-file>
    </welcome-file-list>
     <context-param>
     <param-name>contextConfigLocation</param-name>

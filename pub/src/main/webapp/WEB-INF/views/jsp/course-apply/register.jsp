@@ -33,7 +33,8 @@
 					      <strong> 注意! </strong > 本站查询的分数来源于12333官网，详情请到官网咨询
 					
 					  </div >
-					   <form    name ="form1" method="post" class="form-horizontal">  
+					   <form    id ="registerform" method="post" class="form-horizontal">
+					   		<input type="hidden" name="token" value="${token}" />  
 					   		<div class="form-group">
 							    <label for="userName" class="col-sm-3 control-label">用户名</label>
 							     <div class="col-sm-5">
@@ -165,7 +166,7 @@
 						  </div>
 				     <div class="form-group">
 					    <div class="col-sm-offset-2 col-sm-10">
-					      <button type="submit" class="btn btn-primary">确&nbsp;&nbsp;认</button>
+					      <button type="button" class="btn btn-primary">确&nbsp;&nbsp;认</button>
 					      <button type="button" class="btn btn-default">取&nbsp;&nbsp;消</button>
 					    </div>
 					  </div>
@@ -200,15 +201,15 @@
     });
 	 $(function(){
 		   //1. 简单写法：
-		   $("form").validation();
-		   $("form").attr("action", "${ctx}/usrreg/register.do");
-		   $("button[type='submit']").on('click',function(event){
+		   $("#registerform").validation();
+		   $("#registerform").attr("action", "${ctx}/usrreg/register.do");
+		   $("#registerform .btn-primary").on('click',function(event){
 		     // 2.最后要调用 valid()方法。
-		     if ($("form").valid(this,"error!")==false){
+		     if ($("#registerform").valid(this,"error!")==false){
 		       //$("#error-text").text("error!"); 1.0.4版本已将提示直接内置掉，简化前端。
 		       return false;
 		     }
-		     $("form").submit();
+		     $("#registerform").submit();
 		   }); 
 		   
 		   //设置学历下拉框的内容

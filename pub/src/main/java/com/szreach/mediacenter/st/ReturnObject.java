@@ -14,6 +14,14 @@ public class ReturnObject {
 
 	private Integer code;
 	private String message;
+	private String returnToUrl;
+	
+	public String getReturnToUrl() {
+		return returnToUrl;
+	}
+	public void setReturnToUrl(String returnToUrl) {
+		this.returnToUrl = returnToUrl;
+	}
 	/**
 	 * @param code
 	 * @param message

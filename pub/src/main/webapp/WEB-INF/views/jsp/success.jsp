@@ -19,7 +19,12 @@
 <jsp:include page="nav.jsp"></jsp:include>
 	<div id="myAlert" class="alert alert-success">
 	   <a href="#" class="close" data-dismiss="alert">&times;</a>
+	   <c:if test="${redirectUrl != null }">
 	   <strong>操作成功！<a href="${ctx }${redirectUrl }">点击这里返回</a></strong>
+	   </c:if>
+	   <c:if test="${redirectUrl == null }">
+	   <spring:message code="${msg}"></spring:message>
+	    </c:if>
 	</div>
 </div>   
 

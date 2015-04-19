@@ -14,35 +14,99 @@
     <![endif]-->
 	
 	<style type="text/css">
-		*{margin:0;padding: 0;}
-      .loginBox{width:420px;height:230px;padding:0 20px;border:1px solid #fff; color:#000; margin-top:40px; border-radius:8px;background: white;box-shadow:0 0 15px #222; background: -moz-linear-gradient(top, #fff, #efefef 8%);background: -webkit-gradient(linear, 0 0, 0 100%, from(#f6f6f6), to(#f4f4f4));font:11px/1.5em 'Microsoft YaHei' ;position: absolute;left:50%;top:50%;margin-left:-210px;margin-top:-115px;}
-      .loginBox h2{height:45px;font-size:20px;font-weight:normal;}
-      .loginBox .left{border-right:1px solid #ccc;height:100%;padding-right: 20px; }
+	
 	</style>
   </head>
-  <body>
-    <div class="container"  style="">
-		<div class="row">
-        <div class="loginpanel">
-			<i id="loading" class="hidden fa fa-spinner fa-spin bigicon"></i>
-            <h2>
-				<span class="fa fa-quote-left "></span> 登录 <span class="fa fa-quote-right "></span>
-			</h2>
-            <div>
-                <input id="username" type="text" placeholder="登录账号" onkeypress="check_values();">
-                <input id="password" type="password" placeholder="输入密码" onkeypress="check_values();">
-
-				<div class="buttonwrapper">
-					<button id="loginbtn" class="btn btn-warning loginbutton">
-						<span class="fa fa-check"></span>
-					</button>
-					<span id="lockbtn" class="fa fa-lock lockbutton redborder"></span>
-				</div>
-            </div>
-        </div>
+  <body style="background: url(${ctx}/images/login_background.jpg)">
+    <div class="container"  >
+    <div class="row" style="height: 200px;">
+    	<div class="col-sm-3">
+    		
+    	</div>
     </div>
-    
+    <div class="row">
+    	<div class="col-sm-3" style="padding: 0;">
+    	</div>
+    	<div class="col-sm-6" style="padding: 0;">
+	    	<div class="row panel" style="padding: 0; margin: 0;">
+		    	<div class="col-sm-12" style="padding: 0; margin: 0;">
+		    	<div class="panel panel-default" style="padding: 0; margin: 0;">
+				   <div class="panel-body"  style="background-color: transparent;">
+				    <h2 style="text-align: center; ">课程报名系统</h2>
+				     <div class="row">
+				    	<div class="col-sm-12 well" >
+				    		<form id="loginForm"  role="form" >
+							   <div class="form-group" >
+							      <label for="name">用户名</label>
+							      <input type="text" class="form-control" id="name"  name="userName"
+							         placeholder="请输入用户名" check-type="required" required-message="请输入用户名。">
+							   </div>
+							   <div class="form-group">
+							      <label for="pwd">密码</label>
+							      <input type="text" class="form-control" id="pwd"  name="passwd"
+							         placeholder="请输入密码" check-type="required" required-message="请输入密码。">
+							   </div>
+							   <div class="form-group">
+							      <button type="button" class="btn btn-primary btn-lg btn-block">登录</button>
+							  </div>
+							</form>
+							 <div id="alertDiv"  class ="alert alert-danger alert-dismissable hide">   
+						        <button   type ="button"   class ="close"   data-dismiss ="alert"   aria-hidden ="true"> &times; </button >   
+						        <strong> 错误! </strong><span id="messageSpan"></span> 
+						   </div>   
+				    	</div>
+				    </div>
+				   </div>
+				</div>
+		    		
+		    	</div>
+		    </div>
+    	
+    	
+    	</div>
+    	<div class="col-sm-3" style="padding: 0;">
+    	</div>
+    </div>
+    	
+		
     </div> <!-- /container -->
   </body>
+  <script type="text/javascript" src="${ctx }/js/bootstrap3-validation.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="${ctx }/js/jquery.serializeJson.js" charset="UTF-8"></script>
+  <script type="text/javascript">
+  $(document).ready(function(){
+	  $("#loginForm").validation();
+	   $("#loginForm").attr("action", "${ctx}/login/ajaxLogin.do");
+	   $("button[type='button']").on('click',function(event){
+	     // 2.最后要调用 valid()方法。
+	     if ($("#loginForm").valid(this,"error!")==false){
+	       //$("#error-text").text("error!"); 1.0.4版本已将提示直接内置掉，简化前端。
+	       return false;
+	     }
+	    // $("form").submit();
+	    submitForm();
+	   }); 
+	 
+  });
+  
+	function submitForm(){
+		$.ajax({
+		    type: 'post',
+		    url: '${ctx}/login/ajaxLogin.do',
+		    data: $("#loginForm").serializeJson(),
+		    dataType: "json", 
+		    success: function(data) {
+		    	
+		    	  if(data.code == 0) {
+		    		 window.location="${ctx}"+data.returnToUrl;
+			       } else {
+			    	   $("#messageSpan").html(data.code);
+			    	   $("#alertDiv").removeClass("hide");
+			       }
+		    }
+		});
+	}
+
+  </script>
 </html>
 

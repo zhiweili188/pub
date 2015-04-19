@@ -92,6 +92,18 @@
 		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"></bean>
 	</mvc:interceptors>
 	
+	<!-- 国际化的消息资源文件 -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <!-- 在web环境中一定要定位到classpath 否则默认到当前web应用下找  -->
+                <value>classpath:messages</value>
+            </list>
+        </property>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="cacheSeconds" value="60"/>
+    </bean>
+	
 		<!-- <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		定义默认的异常处理页面，当该异常类型的注册时使用
 		<property name="defaultErrorView" value="error"></property>
@@ -117,6 +129,11 @@
               <bean id="loginIntercepter" class="com.szreach.mediacenter.auth.intercepters.LoginIntercepter">
 		    </bean>
         </mvc:interceptor>
+         <!-- 配置Token拦截器，防止用户重复提交数据 -->
+	    <mvc:interceptor>
+	        <mvc:mapping path="/**"/>
+	        <bean class="com.szreach.mediacenter.common.interceper.TokenIntercepter"/>
+	    </mvc:interceptor>
     </mvc:interceptors>
 	
 </beans>  

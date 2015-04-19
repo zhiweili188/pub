@@ -12,9 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.szreach.mediacenter.auth.login.bean.LoginUser;
+import com.szreach.mediacenter.auth.login.dao.LoginUserDao;
 import com.szreach.mediacenter.common.base.AbstractBaseServiceImpl;
 import com.szreach.mediacenter.common.base.BaseDao;
 import com.szreach.mediacenter.common.base.PageBean;
+import com.szreach.mediacenter.common.util.CommonTools;
 import com.szreach.mediacenter.course.apply.bean.UserRegister;
 import com.szreach.mediacenter.course.apply.dao.UserRegisterDao;
 
@@ -31,6 +34,8 @@ public class UserRegisterServiceImpl extends AbstractBaseServiceImpl<UserRegiste
 
 	@Autowired
 	private UserRegisterDao userRegisterDao;
+	@Autowired
+	private LoginUserDao loginUserDao;
 	
 	@Override
 	public BaseDao<UserRegister> getBaseDao() {
@@ -79,7 +84,12 @@ public class UserRegisterServiceImpl extends AbstractBaseServiceImpl<UserRegiste
 			entity.setIdentity(0);
 		}
 		userRegisterDao.insert(entity);
-
+		
+		LoginUser loginUser = new LoginUser();
+		loginUser.setUserId(CommonTools.getGUID());
+		loginUser.setUserName(entity.getUserName());
+		loginUser.setPasswd(CommonTools.getMD5(entity.getPasswd()));
+		loginUserDao.insert(loginUser);
 	}
 
 	@Override

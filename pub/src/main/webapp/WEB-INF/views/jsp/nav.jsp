@@ -1,43 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
    <%@ include file="/WEB-INF/views/jsp/common.jsp" %>
-<!DOCTYPE html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>Bootstrap 101 Template</title>
 
-    <!-- Bootstrap -->
-    <link href="${ctx }/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <style type="text/css">
-    
-    	
-    </style>
-  </head>
-<body > 
-    <div   class ="container "> 
 
      	<nav class="navbar navbar-default" role="navigation">
 		   <div class="navbar-header">
-		      <a class="navbar-brand" href="#">课程报名系统</a>
+		      <a class="navbar-brand" href="#">首页</a>
 		   </div>
 		   <div>
 		      <ul class="nav navbar-nav">
-		         <li class="active" url="http://www.baidu.com"><a href="#" >报名</a></li>
-		         <li url="http://www.baidu.com"><a href="#">注册</a></li>
+		         <li class="active" url="http://www.baidu.com"><a class="clickMenu" href="#" >课程列表</a></li>
 		         <li class="dropdown">
 		            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-		               Java 
+		                测试
 		               <b class="caret"></b>
 		            </a>
 		            <ul class="dropdown-menu">
@@ -51,23 +26,71 @@
 		            </ul>
 		         </li>
 		      </ul>
+		      <ul class="nav navbar-nav" style="float: right;">
+		        <c:if test="${_login_user == null }">
+		         <li class="dropdown">
+		            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		               登录
+		               <b class="caret"></b>
+		            </a>
+		            <ul class="dropdown-menu" style="left: -100px; width: 300px; padding: 0;">
+		               <li>
+		               		<div class="row" style="margin: 0; padding: 0;">
+						    	<div class="col-sm-12 well"  style="margin: 0; ">
+						    		<form id="loginForm"  role="form" >
+						    			
+									   <div class="form-group" >
+									      <label for="name">用户名</label>
+									      <input type="text" class="form-control" id="name"  name="userName"
+									         placeholder="请输入用户名" check-type="required" required-message="请输入用户名。">
+									   </div>
+									   <div class="form-group">
+									      <label for="pwd">密码</label>
+									      <input type="text" class="form-control" id="pwd"  name="passwd"
+									         placeholder="请输入密码" check-type="required" required-message="请输入密码。">
+									   </div>
+									   <div class="form-group">
+									      <button type="button" class="btn btn-primary btn-lg btn-block">登录</button>
+									  </div>
+									</form>
+									 <div id="alertDiv"  class ="alert alert-danger alert-dismissable hide">   
+								        <button   type ="button"   class ="close"   data-dismiss ="alert"   aria-hidden ="true"> &times; </button >   
+								        <strong> 错误! </strong><span id="messageSpan"></span> 
+								   </div>   
+						    	</div>
+						    </div>
+		               </li>
+		              
+		            </ul>
+		         </li>
+		          <li url="${ctx }/usrreg/start-register.do"><a class="clickMenu"  href="#">注册</a></li>
+		           </c:if>
+		          <c:if test="${_login_user != null }">
+		          <li class="" url="${ctx }/login/ajaxLogout.do"><a class="logout"  href="#" >注销</a></li>
+		          </c:if>
+		      </ul>
 		   </div>
 		</nav>
-    </div>   
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="${ctx }/js/jquery/jquery-1.11.2.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="${ctx }/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${ctx }/js/bootstrap3-validation.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="${ctx }/js/jquery.serializeJson.js" charset="UTF-8"></script>
+  <script src="${ctx }/js/login.js"></script>
     <script type="text/javascript">
     	
     	$(document).ready(function(){
-    		$(".navbar li a").click(function(e){
+    		$(".navbar .clickMenu").click(function(e){
+    		
     			window.location.href = $(this).parent().attr("url");
+    			
     		});
+    		$(".navbar .logout").click(function(e){
+    		
+    			 logout();
+    			
+    		});
+    		
+    		$(".navbar .dropdown-toggle").dropdown();
     		
     
     		});
     </script>
-  </body>
-</html>
+
