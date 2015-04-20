@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szreach.mediacenter.auth.department.dao.DepartmentDao">
+	<resultMap type="Department" id="DepartmentMap">
+		<id property="id" column="id"></id>
+		<result property="departmentCode" column="department_code"></result>
+		<result property="departmentName" column="department_name"  />
+		<result property="level" column="level"  javaType="int" jdbcType="INTEGER"/>
+		<result property="parentId" column="parent_id"></result>
+		<result property="status" column="status"></result>
+	</resultMap>
+	
+	
+	<select id="get" parameterType="int" resultMap="DepartmentMap">
+		<![CDATA[ 
+		SELECT * from td_department  WHERE id = #{id}
+		]]>
+	</select>
+	
+	<insert id="insert" parameterType="Department" useGeneratedKeys="true" keyProperty="id">
+		insert into td_department(id, department_code, department_name, level, parent_id, status ) values(
+		   #{id},
+		   #{departmentCode},
+		   #{departmentName},
+		   #{level},
+		   #{parentId},
+		   0
+		)
+	</insert>
+	<update id="update" parameterType="Department">
+		update td_department 
+		 <set>
+		 	department_code=#{departmentCode},  
+			 department_name=#{departmentName},  
+			 parent_id=#{parentId}, 
+		
+			<if test="level != null">
+				 level=#{level}
+			</if>
+		 </set>
+		WHERE id = #{id}
+	</update>
+	
+	<select id="countAll"  resultType="int">
+        select count(*) c from td_department
+         <include refid="searchCondition"></include>
+    </select>
+    
+    <select id="query" resultMap="DepartmentMap" >
+        select *  from td_department
+        <include refid="searchCondition"></include>
+         <if test="page != null">
+        		limit #{page.beginIndex}, #{page.endIndex}
+        	</if>
+    </select>
+    
+    <sql id="searchCondition">
+    	<where>
+        	<if test="query.departmentCode != null">
+        		and department_code like "%"#{query.departmentCode}"%"
+        	</if>
+        	<if test="query.departmentName != null">
+        		and department_name like "%"#{query.departmentName}"%"
+        	</if>
+        	<if test="query.level != null">
+        		and level = #{query.level}
+        	</if>
+        	<if test="query.parentId!= null">
+        		and parent_id = #{query.parentId}
+        	</if>
+        	<if test="query.status != null">
+        		and status = #{query.status}
+        	</if>
+        	
+        </where>
+    </sql>
+    
+    <update id="delete"  parameterType="int" >
+			update td_department set status=9 where id=#{id}
+	</update>
+	
+	
+</mapper> 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+    
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">   
+     
+     <!-- 其中basename用来指定properties文件的通用名
+              如实例中的messages_en.properties,messages_ja.properties通用名都是messages
+      -->
+     <property name="basename" value="messages" />
+     <property name="defaultEncoding" value="UTF-8"/>
+     <property name="useCodeAsDefaultMessage" value="true" />
+     
+   </bean>   
+   
+    <!-- 配置基于Session的处理,将提交上来的locale参数进行处理 -->  
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+    </bean>  
+    
+
+    
+</beans>

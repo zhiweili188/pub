@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop   
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd   
+        http://www.springframework.org/schema/beans   
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   
+        http://www.springframework.org/schema/context   
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd   
+        http://www.springframework.org/schema/mvc   
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd   
+        http://www.springframework.org/schema/tx   
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+ <mvc:annotation-driven/> 
+	<!-- 避免IE执行AJAX时,返回JSON出现下载文件
+	<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>application/json;charset=UTF-8</value>
+				<value>application/*+json;charset=UTF-8</value>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean> -->
+	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="mappingJacksonHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+	 <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"></bean>
+  -->
+	<context:component-scan base-package="com.szreach.mediacenter.auth" >
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:exclude-filter type="annotation"  expression="org.springframework.stereotype.Service" />
+	</context:component-scan>
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean> 
+	
+
+	<!-- 支持上传文件 -->  
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/> 
+    
+	<!-- FreeMarker环境配置 -->
+	<!-- <bean id="freemarkerConfig"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		freemarker模板位置
+		<property name="templateLoaderPath" value="/WEB-INF/views/freemarker/" />
+	</bean> -->
+
+	<!-- <bean id="viewResolver" class="org.eric.view.viewresolver.MultiViewResover">
+		<property name="resolvers">
+			<map>
+				<entry key="jsp">
+					<bean
+						class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+						<property name="viewClass"
+							value="org.springframework.web.servlet.view.JstlView" />
+						<property name="prefix" value="/WEB-INF/views/jsp/" />
+						<property name="suffix" value=".jsp" />
+					</bean>
+				</entry>
+				<entry key="ftl">
+					<bean
+						class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+						<property name="cache" value="true" />
+						<property name="prefix" value="/" />
+						<property name="suffix" value=".ftl" />
+					</bean>
+				</entry>
+				<entry key="vm">
+					<bean
+						class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+						<property name="cache" value="true" />
+						<property name="prefix" value="/" />
+						<property name="suffix" value=".vm" />
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean> -->
+
+	<mvc:interceptors>
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"></bean>
+	</mvc:interceptors>
+	
+		<!-- <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		定义默认的异常处理页面，当该异常类型的注册时使用
+		<property name="defaultErrorView" value="error"></property>
+		定义异常处理页面用来获取异常信息的变量名，默认名为exception
+		<property name="exceptionAttribute" value="ex"></property>
+		定义需要特殊处理的异常，用类名或完全路径名作为key，异常也页名作为值
+		<property name="exceptionMappings">
+			<props>
+				<prop key="com.szreach.mediacenter.auth.test.ex.BusinessException">error-business</prop>
+				<prop key="com.szreach.mediacenter.auth.test.ex.ParameterException">error-parameter</prop>
+
+				这里还可以继续扩展对不同异常类型的处理
+			</props>
+		</property>
+	</bean> -->
+	<!-- <bean id="exceptionHandler" class="com.szreach.mediacenter.auth.test.ex.MyExceptionHandler"></bean> -->
+	
+	  <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 对所有的请求拦截使用/** ,对某个模块下的请求拦截使用：/myPath/* -->
+            <mvc:mapping path="/**" />
+              <bean id="officeHoursInterceptor"
+		            class="com.szreach.mediacenter.auth.function.action.TimeBasedAccessInterceptor">
+		        <property name="openingTime" value="8"/>
+		        <property name="closingTime" value="19"/>
+		    </bean>
+        </mvc:interceptor>
+        
+         <mvc:interceptor>
+            <!-- 对所有的请求拦截使用/** ,对某个模块下的请求拦截使用：/myPath/* -->
+            <mvc:mapping path="/**" />
+              <bean id="loginIntercepter" class="com.szreach.mediacenter.auth.intercepters.LoginIntercepter">
+		    </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+</beans>  

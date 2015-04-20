@@ -1,0 +1,55 @@
+@charset "utf-8";
+
+select {
+    width: 70px !important;
+}
+
+.recording {
+    position: absolute;
+    width:100%;
+    text-align:center;
+    top : 40px;
+}
+
+fieldset {
+    height: 66px;
+}
+
+#movieDiv fieldset {
+    margin-top: -5px;
+}
+
+.movieChoose {
+    color: #165E9E;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.toolFieldset {
+    height: 56px;
+    *height: 66px;
+    margin-top: 3px;
+    *margin-top: 0px;
+}
+
+.movieFieldset {
+    padding: 10px 10px 5px 10px;
+}
+
+.movieFieldset table {
+    margin-left: 8px;
+    margin-top: 5px;
+}
+
+.baseInfoDiv {
+    padding: 10px;
+    *padding: 0px;
+}
+
+#advRecordForm {
+   border : 1px solid #9EB7D6;
+}
+
+.screenConfigDescn {
+    padding: 5px;
+}

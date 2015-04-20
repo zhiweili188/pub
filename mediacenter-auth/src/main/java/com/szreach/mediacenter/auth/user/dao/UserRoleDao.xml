@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szreach.mediacenter.auth.user.dao.UserRoleDao">
+	<resultMap type="LoginUser" id="loginUserMap">
+		<id property="id" column="id"></id>
+		<result property="userName" column="user_name"></result>
+		<result property="fullName" column="full_name" />
+		<result property="firstLetter" column="first_letter" />
+		<result property="password" column="passwd" />
+		<result property="registerTime" column="register_time" />
+		<result property="roleType" column="role_type"  javaType="int" jdbcType="INTEGER"/>
+		<result property="userType" column="user_type"  javaType="int" jdbcType="INTEGER"/>
+		<result property="level" column="level"  javaType="int" jdbcType="INTEGER"/>
+	</resultMap>
+	<resultMap type="com.szreach.mediacenter.auth.user.bean.UserRole" id="UserRoleMap">
+		<result property="userId" column="user_id"></result>
+		<result property="roleId" column="role_id"></result>
+	</resultMap>
+	
+	<insert id="insertUserRole" >
+		<foreach collection="list" item="roleId" index="idx"  open="" close=";" separator=";">
+			insert into td_user_role(user_id,role_id) values(#{userId}, #{roleId})
+		</foreach>
+		
+	</insert>
+	
+		<delete id="delete" parameterType="int" >
+			delete from td_user_role where user_id=#{id}
+		</delete>
+	
+	<select id="getUserRole" parameterType="int" resultMap="com.szreach.mediacenter.auth.role.dao.RoleDao.RoleMap">
+		SELECT b.* from td_user_role a 
+		JOIN td_role b on a.role_id=b.id
+		 where user_id=#{id}
+	</select>
+	
+
+</mapper> 

@@ -1,0 +1,88 @@
+body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 12px;
+    *font-size: 12px;
+    font-family: Verdana, Arial,, Helvetica, sans-serif;
+    scrollbar-face-color: #dff9fe;
+    scrollbar-highlight-color: #FFFFFF;
+    scrollbar-3dlight-color: #9adae7;
+    scrollbar-darkshadow-color: #9adae7;
+    scrollbar-Shadow-color: #FFFFFF;
+    scrollbar-arrow-color: #006498;
+    scrollbar-track-color: #fff;
+}
+
+.menu_root {
+    background-color: #C7DAF2;
+    background-image: url(images/menu_bg.jpg);
+    height: 100%;
+    overflow: hidden;
+}
+
+.menu_parent {
+    background: url("images/menu_parent.png") repeat-x;
+    width: 150px;
+    height:27px;
+    padding-left:5px;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    
+}
+
+.menu_parent div {
+    padding-top: 3px;
+    *padding-top: 7px;
+    color: #fff;
+}
+
+.menu_parent_last {
+    background: url("images/menu_parent_last.png") repeat-x;
+    height:28px;
+}
+
+.menu_parent_hover {
+    font-weight: bolder;
+    background: url("images/menu_parent_hover.png") repeat-x;
+    height: 32px;
+}
+
+.menu_child {
+    width: 150px;
+    display: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.menu_child table {
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+.menu_child td {
+    text-align: center;
+}
+
+.menu_child_hover {
+}
+
+.menu_block {
+    width: 90px;
+    height: 70px;
+    padding-top: 8px;
+    cursor: pointer;
+}
+
+.menu_block div {
+    padding-top: 5px;
+    *padding-top: 8px;
+    font-size:13px;
+    * font-size: 12px;
+    font-family: Verdana, Arial,, Helvetica, sans-serif;
+}
+
+.menu_block_hover {
+    background: url(images/menu_hover.png) no-repeat;
+}

@@ -1,0 +1,36 @@
+
+.statisticsDiv {
+    border: 1px solid #9eb7d6;
+    float: left;
+    width: 300px;
+    margin-left: 10px;
+    margin-top: 15px;
+    padding: 10px;
+}
+
+.statisticsDiv table {
+    width: 100%;
+}
+
+.statisticsDiv th {
+    text-align: right;
+}
+
+.vodFileTopDiv {
+    float: left;
+    border: 1px solid #9eb7d6;
+    width: 300px;
+    margin-left: 15px;
+    margin-top: 15px;
+    padding: 10px;
+}
+
+.vodFileTopDiv table {
+    width: 100%;
+}
+
+.vodFileTopDiv hr {
+    border-top: 1px solid #9eb7d6;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
