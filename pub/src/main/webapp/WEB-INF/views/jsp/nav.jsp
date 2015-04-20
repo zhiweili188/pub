@@ -8,8 +8,8 @@
 		      <a class="navbar-brand" href="#">首页</a>
 		   </div>
 		   <div>
-		      <ul class="nav navbar-nav">
-		         <li class="active" url="http://www.baidu.com"><a class="clickMenu" href="#" >课程列表</a></li>
+		      <ul class="nav navbar-nav navbar-left">
+		         <li class="active" url="${ctx }/crs/courselist.do"><a class="clickMenu" href="#" >课程列表</a></li>
 		         <li class="dropdown">
 		            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 		                测试
@@ -26,14 +26,14 @@
 		            </ul>
 		         </li>
 		      </ul>
-		      <ul class="nav navbar-nav" style="float: right;">
+		      <ul class="nav navbar-nav navbar-right" style="margin-right: 0;">
 		        <c:if test="${_login_user == null }">
 		         <li class="dropdown">
 		            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 		               登录
 		               <b class="caret"></b>
 		            </a>
-		            <ul class="dropdown-menu" style="left: -100px; width: 300px; padding: 0;">
+		            <ul class="dropdown-menu" style=" width: 300px; padding: 0;">
 		               <li>
 		               		<div class="row" style="margin: 0; padding: 0;">
 						    	<div class="col-sm-12 well"  style="margin: 0; ">
@@ -66,7 +66,22 @@
 		          <li url="${ctx }/usrreg/start-register.do"><a class="clickMenu"  href="#">注册</a></li>
 		           </c:if>
 		          <c:if test="${_login_user != null }">
-		          <li class="" url="${ctx }/login/ajaxLogout.do"><a class="logout"  href="#" >注销</a></li>
+		          
+		          <li class="dropdown">
+		            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		                ${_login_user.userName }
+		               <b class="caret"></b>
+		            </a>
+		            <ul class="dropdown-menu">
+		               <li><a href="#">个人资料</a></li>
+		               <li><a href="#">我的课程</a></li>
+		               <li><a href="#">Jasper Report</a></li>
+		               <li class="divider"></li>
+		               <li><a href="#">分离的链接</a></li>
+		               <li class="divider"></li>
+		               <li class="" url="${ctx }/login/ajaxLogout.do"><a class="logout"  href="#" >注销</a></li>
+		            </ul>
+		         </li>
 		          </c:if>
 		      </ul>
 		   </div>
