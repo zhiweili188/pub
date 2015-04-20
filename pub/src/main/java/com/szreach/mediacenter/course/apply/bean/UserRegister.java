@@ -29,6 +29,7 @@ public class UserRegister extends Persistentable {
 	private Integer identity;
 	private Integer status;
 	private String createTime;
+	private String userId;
 	
 	public String getUserName() {
 		return userName;
@@ -126,6 +127,12 @@ public class UserRegister extends Persistentable {
 	}
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 	

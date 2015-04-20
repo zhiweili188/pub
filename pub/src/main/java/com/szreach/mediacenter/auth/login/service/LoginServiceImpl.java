@@ -36,11 +36,11 @@ public class LoginServiceImpl extends AbstractBaseServiceImpl implements LoginSe
 		int result = ReturnCode.SUCCESS;
 		//1.检查用户名是否存在
 		if(loginUser == null) {
-			result = ReturnCode.USERNAME_PASSW_ERROR;
+			result = ReturnCode.ERR_USERNAME_PASSW;
 		} else {
 			//2.检查密码是否正确
 			if( ! loginUser.getPasswd().equals(CommonTools.getMD5(user.getPasswd()))) {
-				result = ReturnCode.USERNAME_PASSW_ERROR;
+				result = ReturnCode.ERR_USERNAME_PASSW;
 			} else {
 				
 			}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szreach.mediacenter.course.apply.dao.UserCourseApplyDao">
+	<resultMap type="com.szreach.mediacenter.course.apply.bean.UserCourseApply" id="UserCourseApplyMap">
+		<result property="userId" column="user_id"></result>
+		<result property="courseId" column="course_id"  />
+		<result property="applyTime" column="apply_time"  />
+		<result property="status" column="status"></result>
+		
+	</resultMap>
+    
+    <select id="query" parameterType="com.szreach.mediacenter.course.apply.bean.UserCourseApply" resultMap="UserCourseApplyMap" >
+       SELECT a.* from user_course_apply a 
+		 where a.user_id=#{userId}
+		ORDER by a.apply_time
+      
+    </select>
+    
+    <insert id="insert" parameterType="com.szreach.mediacenter.course.apply.bean.UserCourseApply">
+    	insert into user_course_apply(user_id, course_id, apply_time, status)
+    	values(
+    	  #{userId},#{courseId},#{applyTime},0
+    	)
+    </insert>
+   
+	
+</mapper> 

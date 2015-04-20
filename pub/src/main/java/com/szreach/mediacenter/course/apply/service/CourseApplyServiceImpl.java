@@ -13,8 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.szreach.mediacenter.common.base.AbstractBaseServiceImpl;
 import com.szreach.mediacenter.common.base.BaseDao;
+import com.szreach.mediacenter.common.util.DateUtil;
 import com.szreach.mediacenter.course.apply.bean.Course;
+import com.szreach.mediacenter.course.apply.bean.UserCourseApply;
 import com.szreach.mediacenter.course.apply.dao.CourseApplyDao;
+import com.szreach.mediacenter.course.apply.dao.UserCourseApplyDao;
+import com.szreach.mediacenter.st.ReturnCode;
 
 /**
  * @Description:
@@ -29,6 +33,7 @@ public class CourseApplyServiceImpl extends AbstractBaseServiceImpl<Course> impl
 
 	@Autowired
 	private CourseApplyDao courseApplyDao;
+	@Autowired UserCourseApplyDao userCourseApplyDao;
 
 	@Override
 	public BaseDao<Course> getBaseDao() {
@@ -47,4 +52,26 @@ public class CourseApplyServiceImpl extends AbstractBaseServiceImpl<Course> impl
 		return course;
 	}
 	
+	public int apply(String courseId, String userId) {
+		int returnCode = ReturnCode.SUCCESS;
+		
+		Course course = getByID(courseId);
+		if(course.getRemainApplyQuota() > 0) {
+			//还有剩余名额,剩余名额减1
+			courseApplyDao.decRemainQuota(courseId);
+			
+			//保存申请记录
+			UserCourseApply ucApply = new UserCourseApply();
+			ucApply.setStatus(0);
+			ucApply.setApplyTime(DateUtil.getCurrentDateTimeStr());
+			ucApply.setCourseId(courseId);
+			ucApply.setUserId(userId);
+			userCourseApplyDao.insert(ucApply);
+			
+		} else {
+			//没有名额了
+			returnCode = ReturnCode.ERR_COURSE_QUOTO_FULL;
+		}
+		return returnCode;
+	}
 }

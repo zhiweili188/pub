@@ -13,4 +13,5 @@ package com.szreach.mediacenter.st;
 public interface Key {
 
 	public static final String 	SESSION_LOGIN_USER="_login_user";
+	public static final String 	DISPLAY_MESSAGE="msg";
 }

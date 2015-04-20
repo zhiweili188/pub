@@ -15,4 +15,7 @@ import com.szreach.mediacenter.course.apply.bean.UserRegister;
  */
 public interface UserRegisterDao extends BaseDao<UserRegister> {
 
+	public UserRegister getByUserId(String userId);
+	public UserRegister getByIdCardNo(String idCardNo);
+	public UserRegister getByEmail(String email);
 }

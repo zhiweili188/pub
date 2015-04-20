@@ -27,11 +27,15 @@ public class Course extends Persistentable {
 	private String applyStartTime;
 	private String applyEndTime;
 	private int applyQuota;
+	private int remainApplyQuota;
 	private int applyMethod;
 	private String createUserId;
 	private String createTime;
 	
 	private List<TrainingRoomOrderBean> detail;
+	
+	private boolean open = false;//是否在报名时间内
+	private boolean applied = false;//是否已报名
 
 	public String getTid() {
 		return tid;
@@ -128,6 +132,24 @@ public class Course extends Persistentable {
 	}
 	public void setDetail(List<TrainingRoomOrderBean> detail) {
 		this.detail = detail;
+	}
+	public int getRemainApplyQuota() {
+		return remainApplyQuota;
+	}
+	public void setRemainApplyQuota(int remainApplyQuota) {
+		this.remainApplyQuota = remainApplyQuota;
+	}
+	public boolean isOpen() {
+		return open;
+	}
+	public void setOpen(boolean open) {
+		this.open = open;
+	}
+	public boolean isApplied() {
+		return applied;
+	}
+	public void setApplied(boolean applied) {
+		this.applied = applied;
 	}
 	
 }

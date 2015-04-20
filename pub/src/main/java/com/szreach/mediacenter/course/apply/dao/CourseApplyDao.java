@@ -15,4 +15,5 @@ import com.szreach.mediacenter.course.apply.bean.Course;
  */
 public interface CourseApplyDao extends BaseDao<Course> {
 	public Course get(String id);
+	public void decRemainQuota(String id);
 }

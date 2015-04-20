@@ -6,6 +6,8 @@ package com.szreach.mediacenter.common.base;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,12 @@ import com.google.gson.Gson;
  * @Version: 1.0
  */
 public abstract class BaseAction<T extends Persistentable> {
+	@Autowired
+	private MessageSource messageSource;
+	
+	public MessageSource getMessageSource() {
+		return messageSource;
+	}
 	protected  BaseService<T> getService() {
 		return null;
 	}

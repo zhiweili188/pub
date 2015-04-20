@@ -15,4 +15,5 @@ import com.szreach.mediacenter.course.apply.bean.Course;
  */
 public interface CourseApplyService extends BaseService<Course> {
 	public Course getByID(String id);
+	public int apply(String courseId, String userId);
 }

@@ -201,7 +201,7 @@
     });
 	 $(function(){
 		   //1. 简单写法：
-		   $("#registerform").validation();
+		   $("#registerform").validation(ajaxValidateFormfunction);
 		   $("#registerform").attr("action", "${ctx}/usrreg/register.do");
 		   $("#registerform .btn-primary").on('click',function(event){
 		     // 2.最后要调用 valid()方法。
@@ -329,7 +329,26 @@
 			   $("#identity-div").css("display","");
 			   }
 		   });
+		   
+		
+		   
    });
+	 
+	 function ajaxValidateFormfunction(obj,params){
+	     if (obj.id=='userName'){
+	         $.post("${ctx}/usrreg/validate.do",{userName :$(obj).val()},function(data){
+	        	 if(data.code == 0) {
+	        		 params.err = false;
+	  	           	params.msg = "";
+	        	 } else {
+	        		 params.err = true;
+	  	           	params.msg = data.message;
+	        	 }
+	           
+	          });
+	       }
+		 
+	 }
 </script>
   </body>
 </html>

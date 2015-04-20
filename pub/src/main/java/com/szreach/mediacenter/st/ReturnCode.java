@@ -13,6 +13,9 @@ package com.szreach.mediacenter.st;
 public interface ReturnCode {
 	/**可通用*/
 	public static final int SUCCESS = 0;
-	/**登录*/
-	public static final int USERNAME_PASSW_ERROR = 1;//用户名或密码错误
+	public static final int ERROR = 1;
+	/**登录 10xxx*/
+	public static final int ERR_USERNAME_PASSW = 10001;//用户名或密码错误
+	/**课程申请 20xxx*/
+	public static final int ERR_COURSE_QUOTO_FULL = 20001;//课程名额已报满
 }

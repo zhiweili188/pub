@@ -70,7 +70,7 @@
     	$(document).ready(function(){
     		$(".btn-submit").click(function(){
     			var refid = $(this).attr("refid");
-    			window.location.href ="${ctx}/crs/start-register/"+refid+".do";
+    			window.location.href ="${ctx}/crs/apply/"+refid+".do";
     		});
        });
     </script>

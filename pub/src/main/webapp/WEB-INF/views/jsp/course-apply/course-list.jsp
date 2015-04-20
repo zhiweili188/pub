@@ -57,7 +57,18 @@
 			         <td>${crs.contactTel }</td>
 			         <td>
 			         	<button type="button" class="btn  btn-default  btn-detail"  refid="detail_${crs.tid }" >详细</button>
-			         	<button type="button" class="btn btn-primary btn-default btn-submit" refid="${crs.tid }">报名</button>
+			         	<c:if test="${crs.open == true }">
+			         		<c:if test="${crs.applied == false }">
+			         			<button type="button" class="btn btn-primary btn-default btn-submit" refid="${crs.tid }">报名</button>
+			         		</c:if>
+			         		<c:if test="${crs.applied == true }">
+			         			已报名
+			         		</c:if>
+			         	</c:if>
+			         	<c:if test="${crs.open == false }">
+			         		未到报名时间
+			         	</c:if>
+			         	
 			         </td>
 			      </tr>
 			      <tr id="detail_${crs.tid}" style="display: none;">

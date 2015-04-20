@@ -18,6 +18,9 @@ public class TokenIntercepter extends HandlerInterceptorAdapter {
 	 @Override
 	    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 	        if (handler instanceof HandlerMethod) {
+	        	if(request.getSession(false) ==null) {
+	        		return true;
+	        	}
 	            HandlerMethod handlerMethod = (HandlerMethod) handler;
 	            Method method = handlerMethod.getMethod();
 	            RepeatSubmitValidate annotation = method.getAnnotation(RepeatSubmitValidate.class);

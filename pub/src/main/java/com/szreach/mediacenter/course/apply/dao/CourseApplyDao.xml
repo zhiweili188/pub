@@ -14,6 +14,7 @@
 		<result property="applyEndTime" column="apply_end_time"></result>
 		<result property="applyQuota" column="apply_quota"></result>
 		<result property="applyMethod" column="apply_method"></result>
+		<result property="remainApplyQuota" column="remain_apply_quota"></result>
 		
 		<collection property="detail" ofType="com.szreach.mediacenter.course.apply.bean.TrainingRoomOrderBean">
 			<result property="courseName" column="train"></result>
@@ -23,12 +24,13 @@
 	</resultMap>
     
     <select id="query" resultMap="CourseMap" >
+    <![CDATA[ 
        SELECT a.course_name train,a.start_time,a.end_time, c.cname, b.* from TRAINING_ROOM_ORDER a 
 		INNER JOIN train_course b on a.course_id=b.id
 		left join COURSE_TYPE c on a.course_type=c.id
-		 where b.apply_method=0 
+		 where b.apply_method=0 and b.apply_start_time<=#{applyStartTime} and b.apply_end_time>=#{applyStartTime}
 		ORDER BY b.id, a.start_time
-      
+      	]]>
     </select>
     
    <select id="get" parameterType="string" resultMap="CourseMap">
@@ -38,6 +40,10 @@
 		  WHERE b.id = #{id}
 		]]>
 	</select>
+	
+	<update id="decRemainQuota" parameterType="string" >
+		update train_course set remain_apply_quota=remain_apply_quota-1 where id=#{id}
+	</update>
    
 	
 </mapper> 

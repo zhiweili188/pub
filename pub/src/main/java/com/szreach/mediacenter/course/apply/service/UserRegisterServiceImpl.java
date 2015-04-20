@@ -83,10 +83,13 @@ public class UserRegisterServiceImpl extends AbstractBaseServiceImpl<UserRegiste
 		if(entity.getIdentity() == null) {
 			entity.setIdentity(0);
 		}
+		
+		String userId = CommonTools.getGUID();
+		entity.setUserId(userId);
 		userRegisterDao.insert(entity);
 		
 		LoginUser loginUser = new LoginUser();
-		loginUser.setUserId(CommonTools.getGUID());
+		loginUser.setUserId(userId);
 		loginUser.setUserName(entity.getUserName());
 		loginUser.setPasswd(CommonTools.getMD5(entity.getPasswd()));
 		loginUserDao.insert(loginUser);
@@ -106,6 +109,14 @@ public class UserRegisterServiceImpl extends AbstractBaseServiceImpl<UserRegiste
 	public void update(UserRegister arg0) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public UserRegister getByIdCardNo(String idCardNo) {
+		return userRegisterDao.getByIdCardNo(idCardNo);
+	}
+	
+	public UserRegister getByEmail(String email) {
+		return userRegisterDao.getByEmail(email);
 	}
 
 }
