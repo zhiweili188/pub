@@ -5,6 +5,9 @@
 package com.szreach.mediacenter.common.base;
 
 import java.util.List;
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -13,7 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.google.gson.Gson;
 
@@ -23,18 +29,18 @@ import com.google.gson.Gson;
  * @Date: 2014-3-7
  * @Version: 1.0
  */
-public abstract class BaseAction<T extends Persistentable> {
+public  class BaseAction<T extends Persistentable> {
 	@Autowired
-	private MessageSource messageSource;
+	private    MessageSource messageSource;
 	
-	public MessageSource getMessageSource() {
+	protected  MessageSource getMessageSource() {
 		return messageSource;
 	}
 	protected  BaseService<T> getService() {
 		return null;
 	}
 	protected  String getPrefix() {
-		return null;
+		return "";
 	}
 	protected  final String INDEX=getPrefix()+"/index";
 	
@@ -81,6 +87,14 @@ public abstract class BaseAction<T extends Persistentable> {
 		 getService().delete(id);
 	}
 	
-	
+	public  String getMessage(String msgKey) {
+		return getMessage(msgKey, null);
+	}
+	public  String getMessage(String msgKey, Object[] args) {
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest(); 
+		Locale locale = RequestContextUtils.getLocaleResolver(request).resolveLocale(request);
+		String msg = getMessageSource().getMessage(msgKey, args, locale);
+		return msg;
+	}
 	
 }
