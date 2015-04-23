@@ -26,6 +26,8 @@ public class LoginUser extends Persistentable {
 	
 	private String registerTime;
 	private String roleIds;
+	
+	private String oldpasswd;
 
 	public String getUserId() {
 		return userId;
@@ -113,6 +115,14 @@ public class LoginUser extends Persistentable {
 
 	public void setRoleIds(String roleIds) {
 		this.roleIds = roleIds;
+	}
+
+	public String getOldpasswd() {
+		return oldpasswd;
+	}
+
+	public void setOldpasswd(String oldpasswd) {
+		this.oldpasswd = oldpasswd;
 	}
 	
 	

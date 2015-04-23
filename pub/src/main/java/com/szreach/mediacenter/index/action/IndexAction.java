@@ -1,8 +1,8 @@
 /**
- * Copyright (c) @2015-4-15. All Rights Reserved.
+ * Copyright (c) @2015-4-21. All Rights Reserved.
  * AUTHOR: LIZHIWEI</a>
  */
-package com.szreach.mediacenter.course.apply.action;
+package com.szreach.mediacenter.index.action;
 
 import java.util.Date;
 import java.util.List;
@@ -15,51 +15,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.szreach.mediacenter.auth.login.bean.LoginUser;
 import com.szreach.mediacenter.common.base.BaseAction;
-import com.szreach.mediacenter.common.base.BaseService;
 import com.szreach.mediacenter.common.util.DateUtil;
 import com.szreach.mediacenter.course.apply.bean.Course;
 import com.szreach.mediacenter.course.apply.bean.UserCourseApply;
 import com.szreach.mediacenter.course.apply.service.CourseApplyService;
 import com.szreach.mediacenter.course.apply.service.UserCourseApplyService;
 import com.szreach.mediacenter.st.Key;
-import com.szreach.mediacenter.st.M;
-import com.szreach.mediacenter.st.Message;
-import com.szreach.mediacenter.st.ReturnCode;
 
 /**
  * @Description:
  * @author lizhiwei
- * @Date: 2015-4-15
+ * @Date: 2015-4-21
  * @Version: 1.0
  */
 @Controller
-@RequestMapping("/crs")
 @Scope("prototype")
-public class CourseApplyAction extends BaseAction<Course> {
+public class IndexAction extends BaseAction {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	private CourseApplyService courseApplyService;
 	
 	@Autowired
 	private UserCourseApplyService userCourseApplyService;
-	@Override
-	protected String getPrefix() {
-		return "/course-apply";
-	}
-	@Override
-	protected BaseService<Course> getService() {
-		return courseApplyService;
-	}
 	
-	
-	@RequestMapping(value="/courselist.do")
-	public ModelAndView  list(Model model, HttpSession session) {
+	@RequestMapping(value="/toIndex.do")
+	public ModelAndView toIndex(Model model, HttpSession session) {
 		Course query = new Course();
 		query.setApplyStartTime(DateUtil.formatDateTimeMinute(DateUtil.getCurrentDateTime()));
 		List<Course> list = courseApplyService.getAll(query);
@@ -91,39 +76,6 @@ public class CourseApplyAction extends BaseAction<Course> {
 			}
 		}
 		
-		return new ModelAndView(getPrefix()+"/course-list");     
-	} 
-	
-	@RequestMapping(value="/detail/{refid}.do")
-	public ModelAndView  detail(@PathVariable("refid") String id, Model model) {
-		Course course = courseApplyService.getByID(id);
-		model.addAttribute("course", course);
-		return new ModelAndView(getPrefix()+"/course-detail");     
-	} 
-	
-	@RequestMapping(value="/apply/{refid}.do")
-	public ModelAndView  apply(@PathVariable("refid") String courseId, Model model, HttpSession session) {
-		LoginUser loginUser = (LoginUser)session.getAttribute(Key.SESSION_LOGIN_USER);
-		if(loginUser != null) {
-			int returnCode = courseApplyService.apply(courseId, loginUser.getUserId());
-			if(returnCode == ReturnCode.SUCCESS) {
-				model.addAttribute(Key.DISPLAY_MESSAGE, Message.COURSE_APPLY_SUCCESS.getMsgKey());
-			} else {
-				model.addAttribute(Key.DISPLAY_MESSAGE, Message.ERR_COURSE_QUOTO_FULL.getMsgKey());
-			}
-		}
-		
-		return new ModelAndView("success");     
-	} 
-	
-	@RequestMapping(value="/myCourselist.do")
-	public ModelAndView  myCourselist(Model model, HttpSession session) {
-		LoginUser loginUser = (LoginUser)session.getAttribute(Key.SESSION_LOGIN_USER);
-		UserCourseApply query = new UserCourseApply();
-		query.setUserId(loginUser.getUserId());
-		List<Course> list = courseApplyService.queryUserApplyCourse(query);
-		model.addAttribute("courseList", list);
-		
-		return new ModelAndView(getPrefix()+"/mycourselist");     
-	} 
+		return new ModelAndView("/index");     
+	}
 }

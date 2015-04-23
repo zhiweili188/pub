@@ -32,6 +32,9 @@ public class Course extends Persistentable {
 	private String createUserId;
 	private String createTime;
 	
+	private String applyTime;
+	private String applyStatus;
+	
 	private List<TrainingRoomOrderBean> detail;
 	
 	private boolean open = false;//是否在报名时间内
@@ -150,6 +153,18 @@ public class Course extends Persistentable {
 	}
 	public void setApplied(boolean applied) {
 		this.applied = applied;
+	}
+	public String getApplyTime() {
+		return applyTime;
+	}
+	public void setApplyTime(String applyTime) {
+		this.applyTime = applyTime;
+	}
+	public String getApplyStatus() {
+		return applyStatus;
+	}
+	public void setApplyStatus(String applyStatus) {
+		this.applyStatus = applyStatus;
 	}
 	
 }

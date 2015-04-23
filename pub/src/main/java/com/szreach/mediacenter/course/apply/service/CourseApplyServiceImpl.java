@@ -74,4 +74,10 @@ public class CourseApplyServiceImpl extends AbstractBaseServiceImpl<Course> impl
 		}
 		return returnCode;
 	}
+	
+	@Override
+	public List<Course> queryUserApplyCourse(UserCourseApply query) {
+		List<Course> list = courseApplyDao.queryUserApplyCourse(query);
+		return list;
+	}
 }

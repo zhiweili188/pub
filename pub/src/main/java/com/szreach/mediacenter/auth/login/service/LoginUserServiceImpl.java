@@ -17,6 +17,7 @@ import com.szreach.mediacenter.auth.login.bean.LoginUser;
 import com.szreach.mediacenter.auth.login.dao.LoginUserDao;
 import com.szreach.mediacenter.common.base.AbstractBaseServiceImpl;
 import com.szreach.mediacenter.common.base.PageBean;
+import com.szreach.mediacenter.common.util.CommonTools;
 
 /**
  * @Description:
@@ -43,6 +44,7 @@ public class LoginUserServiceImpl extends AbstractBaseServiceImpl<LoginUser>  im
 
 	
 	public void updatePwd(LoginUser user) {
+		user.setPasswd(CommonTools.getMD5(user.getPasswd()));
 		loginUserDao.updatePwd(user);
 	}
 

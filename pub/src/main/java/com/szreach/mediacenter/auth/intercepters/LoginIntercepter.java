@@ -31,11 +31,17 @@ public class LoginIntercepter implements HandlerInterceptor {
 		String requestUri = request.getServletPath();
 		String auth = request.getParameter("auth");
 		
-		if(auth == null|| requestUri.equals("/login/index.do")) {
+		if(requestUri.equals("/toIndex.do")
+				|| requestUri.equals("/login/tologin.do")
+				|| requestUri.indexOf("/json.do")>0
+				|| requestUri.equals("/usrreg/start-register.do")
+				|| requestUri.equals("/usrreg/validate.do")
+				|| requestUri.equals("/usrreg/register.do")
+				||requestUri.equals("/login/ajaxLogin.do")) {
 			return true;
 		}
 		boolean isLogin = false;
-		if(request.getSession(false).getAttribute(Key.SESSION_LOGIN_USER) != null) {
+		if(request.getSession(false) !=null && request.getSession(false).getAttribute(Key.SESSION_LOGIN_USER) != null) {
 			isLogin = true;
 		} else {
 			 response.sendRedirect("/pub/redict2login.jsp");

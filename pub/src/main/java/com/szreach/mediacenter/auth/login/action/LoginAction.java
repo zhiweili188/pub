@@ -25,6 +25,7 @@ import com.szreach.mediacenter.auth.login.service.LoginService;
 import com.szreach.mediacenter.auth.login.service.LoginUserService;
 import com.szreach.mediacenter.common.base.BaseAction;
 import com.szreach.mediacenter.st.Key;
+import com.szreach.mediacenter.st.Message;
 import com.szreach.mediacenter.st.ReturnCode;
 import com.szreach.mediacenter.st.ReturnObject;
 
@@ -59,11 +60,12 @@ public class LoginAction extends BaseAction {
 		
 		int result = loginService.checkLogin(user, loginUser);
 		if(result != ReturnCode.SUCCESS) {
-			returnObject =  new ReturnObject(result);     
+			returnObject =  new ReturnObject(result);    
+			returnObject.setMessage( getMessage(Message.getById(result)));
 		} else {
 			session.setAttribute(Key.SESSION_LOGIN_USER, loginUser);
 			returnObject = new ReturnObject(ReturnCode.SUCCESS);     
-			returnObject.setReturnToUrl("/crs/courselist.do");
+			returnObject.setReturnToUrl("/toIndex.do");
 		}
 		
 		HttpHeaders headers = new HttpHeaders();

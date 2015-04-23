@@ -15,6 +15,8 @@
 		<result property="applyQuota" column="apply_quota"></result>
 		<result property="applyMethod" column="apply_method"></result>
 		<result property="remainApplyQuota" column="remain_apply_quota"></result>
+		<result property="applyTime" column="apply_time"></result>
+		<result property="applyStatus" column="apply_status"></result>
 		
 		<collection property="detail" ofType="com.szreach.mediacenter.course.apply.bean.TrainingRoomOrderBean">
 			<result property="courseName" column="train"></result>
@@ -29,6 +31,16 @@
 		INNER JOIN train_course b on a.course_id=b.id
 		left join COURSE_TYPE c on a.course_type=c.id
 		 where b.apply_method=0 and b.apply_start_time<=#{applyStartTime} and b.apply_end_time>=#{applyStartTime}
+		ORDER BY b.id, a.start_time
+      	]]>
+    </select>
+    <select id="queryUserApplyCourse" resultMap="CourseMap" >
+    <![CDATA[ 
+     	 SELECT d.apply_time,d.`status` apply_status,a.course_name train,a.start_time,a.end_time, c.cname, b.* from user_course_apply d
+		INNER JOIN train_course b on d.course_id=b.id
+		INNER JOIN TRAINING_ROOM_ORDER a  on a.course_id=b.id
+		left join COURSE_TYPE c on a.course_type=c.id
+		 where b.apply_method=0 and d.user_id=#{userId}
 		ORDER BY b.id, a.start_time
       	]]>
     </select>

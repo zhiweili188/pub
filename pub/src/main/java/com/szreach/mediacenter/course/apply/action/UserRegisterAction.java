@@ -4,34 +4,30 @@
  */
 package com.szreach.mediacenter.course.apply.action;
 
-import java.util.Locale;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.szreach.mediacenter.auth.login.bean.LoginUser;
 import com.szreach.mediacenter.auth.login.service.LoginUserService;
 import com.szreach.mediacenter.common.annotation.RepeatSubmitValidate;
 import com.szreach.mediacenter.common.base.BaseAction;
 import com.szreach.mediacenter.common.base.BaseService;
+import com.szreach.mediacenter.common.util.CommonTools;
 import com.szreach.mediacenter.course.apply.bean.UserRegister;
 import com.szreach.mediacenter.course.apply.service.UserRegisterService;
 import com.szreach.mediacenter.st.Key;
-import com.szreach.mediacenter.st.M;
+import com.szreach.mediacenter.st.Message;
 import com.szreach.mediacenter.st.ReturnCode;
 import com.szreach.mediacenter.st.ReturnObject;
 
@@ -57,7 +53,7 @@ public class UserRegisterAction extends BaseAction<UserRegister> {
 	
 	@Override
 	protected String getPrefix() {
-		return "/course-apply";
+		return "/user";
 	}
 	
 	@RequestMapping(value="/start-register.do")
@@ -71,10 +67,12 @@ public class UserRegisterAction extends BaseAction<UserRegister> {
 	public ModelAndView  register(UserRegister bean, Model model) {
 		if(bean.getId() == null){
 			getService().insert(bean);
+			model.addAttribute(Key.DISPLAY_MESSAGE, Message.USER_REGISTER_SUCCESS.getMsgKey());
 		} else {
 			getService().update(bean);
+			model.addAttribute(Key.DISPLAY_MESSAGE, Message.USER_MODIFY_SUCCESS.getMsgKey());
 		}
-		model.addAttribute(Key.DISPLAY_MESSAGE, M.USER_REGISTER_SUCCESS);
+		
 		return new ModelAndView("success");     
 	} 
 	
@@ -87,22 +85,22 @@ public class UserRegisterAction extends BaseAction<UserRegister> {
 		if(StringUtils.hasText(bean.getUserName())) {
 			LoginUser loginUser = loginUserService.getByUserName(bean.getUserName());
 			if(loginUser != null) {
-				msg = getMessageSource().getMessage(M.USER_NAME_EXIST, null, M.LOCALE);
-				returnObject.setCode(ReturnCode.ERROR);
+				msg = getMessage(Message.ERR_USER_EAMIL_EXIST.getMsgKey(), null);
+				returnObject.setCode(Message.ERR_USER_EAMIL_EXIST.getId());
 			}
 		}
 		if(StringUtils.hasText(bean.getIdCardNo())) {
 			UserRegister reg = userRegisterService.getByIdCardNo(bean.getIdCardNo());
 			if(reg != null) {
-				msg = getMessageSource().getMessage(M.USER_IDCARD_EXIST, null, M.LOCALE);
-				returnObject.setCode(ReturnCode.ERROR);
+				msg = getMessage(Message.ERR_USER_IDCARD_EXIST.getMsgKey());
+				returnObject.setCode(Message.ERR_USER_IDCARD_EXIST.getId());
 			}
 		}
 		if(StringUtils.hasText(bean.getEmail())) {
 			UserRegister reg = userRegisterService.getByEmail(bean.getEmail());
 			if(reg != null) {
-				msg = getMessageSource().getMessage(M.USER_EAMIL_EXIST, null, M.LOCALE);
-				returnObject.setCode(ReturnCode.ERROR);
+				msg = getMessage(Message.ERR_USER_EAMIL_EXIST.getMsgKey());
+				returnObject.setCode(Message.ERR_USER_EAMIL_EXIST.getId());
 			}
 		}
 		
@@ -110,4 +108,38 @@ public class UserRegisterAction extends BaseAction<UserRegister> {
 		
 		return returnObject;
 	}
+	
+	@RequestMapping(value="/registerDetail.do")
+	@RepeatSubmitValidate(create=true)
+	public ModelAndView  getRegisterInfo(Model model, HttpSession session) {
+		LoginUser loginUser = (LoginUser)session.getAttribute(Key.SESSION_LOGIN_USER);
+		UserRegister userInfo = userRegisterService.getByUserId(loginUser.getUserId());
+		model.addAttribute("userInfo", userInfo);
+		return new ModelAndView(getPrefix()+"/userInfo");
+	} 
+	@RequestMapping(value="/toModifyPwd.do")
+	@RepeatSubmitValidate(create=true)
+	public ModelAndView  startModifyPassword(Model model, HttpSession session) {
+		LoginUser loginUser = (LoginUser)session.getAttribute(Key.SESSION_LOGIN_USER);
+		model.addAttribute("loginUser", loginUser);
+		return new ModelAndView(getPrefix()+"/modify-passwd");
+	} 
+	
+	@RequestMapping(value="/modifyPwd.do")
+	@RepeatSubmitValidate(destroy=true)
+	public ModelAndView  modifyPasswd(LoginUser user, Model model, HttpSession session, RedirectAttributes attr) {
+		LoginUser loginUser = (LoginUser)session.getAttribute(Key.SESSION_LOGIN_USER);
+		LoginUser entity = loginUserService.getByUserName(loginUser.getUserName());
+		if(entity.getPasswd().equals(CommonTools.getMD5(user.getOldpasswd()))) {
+			user.setUserId(entity.getUserId());
+			loginUserService.updatePwd(user);
+			model.addAttribute(Key.DISPLAY_MESSAGE, Message.USER_MODIFY_PASSWD_SUCCESS.getMsgKey());
+			return new ModelAndView("success");     
+		} else {
+			attr.addAttribute(Key.DISPLAY_MESSAGE, Message.ERR_OLD_PASSWD_WRONG.getMsgKey());
+			return new ModelAndView("redirect:toModifyPwd.do");
+		}
+		
+	} 
+	
 }

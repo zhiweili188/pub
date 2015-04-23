@@ -22,7 +22,7 @@
 		<div class="panel panel-default">
 		   <div class="panel-heading">
 		      <h3 class="panel-title">
-		         课程列表
+		         课程详情
 		      </h3>
 		   </div>
 		   <div class="panel-body">
@@ -30,8 +30,8 @@
        <table class="table table-bordered">
 		   <tbody>
 		    	<tr>
-		    		<th>课程类别</th>
-		    		<td>${course.courseTypeName }</td>
+		    		<th width="30%">课程类别</th>
+		    		<td width="70%">${course.courseTypeName }</td>
 		    	</tr>
 		    	<tr>
 		    		<th>课程形式</th>
@@ -53,8 +53,29 @@
 		    		<th>联系电话</th>
 		    		<td>${course.contactTel }</td>
 		    	</tr>
+		    	<tr>
+		    		<th>主办单位</th>
+		    		<td>${course.hostEntity }</td>
+		    	</tr>
+		    	<tr>
+		    		<th>报名开始时间</th>
+		    		<td>${course.applyStartTime }</td>
+		    	</tr>
+		    	<tr>
+		    		<th>报名截止时间</th>
+		    		<td>${course.applyEndTime }</td>
+		    	</tr>
+		    	<tr>
+		    		<th>名额</th>
+		    		<td>${course.applyQuota }</td>
+		    	</tr>
+		    	<tr>
+		    		<th>剩余名额</th>
+		    		<td>${course.remainApplyQuota }</td>
+		    	</tr>
 		     <tr>
-		     	<td colspan="2">
+		     	<td></td>
+		     	<td>
 		     		<button type="button" class="btn btn-primary btn-default btn-submit" refid="${course.tid }">报名</button>
 		     	</td>
 		     </tr>

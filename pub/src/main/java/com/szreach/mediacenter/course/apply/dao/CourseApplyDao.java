@@ -4,8 +4,11 @@
  */
 package com.szreach.mediacenter.course.apply.dao;
 
+import java.util.List;
+
 import com.szreach.mediacenter.common.base.BaseDao;
 import com.szreach.mediacenter.course.apply.bean.Course;
+import com.szreach.mediacenter.course.apply.bean.UserCourseApply;
 
 /**
  * @Description:
@@ -16,4 +19,5 @@ import com.szreach.mediacenter.course.apply.bean.Course;
 public interface CourseApplyDao extends BaseDao<Course> {
 	public Course get(String id);
 	public void decRemainQuota(String id);
+	public List<Course> queryUserApplyCourse(UserCourseApply query);
 }

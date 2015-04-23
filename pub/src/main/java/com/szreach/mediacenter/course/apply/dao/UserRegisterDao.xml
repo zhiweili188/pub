@@ -40,6 +40,23 @@
 		   #{userId}
 		)
 	</insert>
+	<update id="update" parameterType="com.szreach.mediacenter.course.apply.bean.UserRegister" >
+		update user_register
+		set
+		   full_name = #{fullName},
+		  sex = #{sex},
+		  birthday= #{birthday},
+		  company= #{company},
+		  department= #{department},
+		  education_background=#{educationBackground},
+		 id_card_no=  #{idCardNo},
+		  mobile= #{mobile},
+		   email=#{email},
+		   type=#{type},
+		   title=#{title},
+		  identity= #{identity}
+		where id=#{id}
+	</update>
     
 	<select id="countAll"  resultType="int">
         select count(*) c from user_register

@@ -103,6 +103,29 @@
         <property name="defaultEncoding" value="UTF-8"/>
         <property name="cacheSeconds" value="60"/>
     </bean>
+    
+    <!-- 邮箱服务器配置 -->  
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">  
+				<!--默认的编码方式 -->  
+	            <property name="defaultEncoding" value="UTF-8"/>  
+				<!--邮箱服务器的主机地址 -->  
+	            <property name="host" value="smtp.qq.com"/>  
+				<!--服务器的端口号 -->  
+	            <property name="port" value="25"/>  
+				<!--连接服务器的用户名 也就是你的QQ邮箱的地址名例如xxx@qq.com-->  
+	            <property name="username" value="364618965@qq.com"/>  
+				<!--密码 就是你登陆邮箱的密码 -->  
+	            <property name="password" value="Zhiweili19831209"/>  
+				<!--下面就是smtp的一些设置-->  
+	            <property name="javaMailProperties">  
+	            <props>  
+				<!--设置自动登录-->  
+	             <prop key="mail.smtp.auth">true</prop>  
+				<!-- 设置端口的进入优先命令状态-->  
+	        	<prop key="mail.smtp.starttls.enable">true</prop>  
+	             </props>  
+	            </property>  
+	</bean>  
 	
 		<!-- <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		定义默认的异常处理页面，当该异常类型的注册时使用

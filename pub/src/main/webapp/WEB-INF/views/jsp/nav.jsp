@@ -4,27 +4,13 @@
 
 
      	<nav class="navbar navbar-default" role="navigation">
-		   <div class="navbar-header">
-		      <a class="navbar-brand" href="#">首页</a>
+		   <div class="navbar-header" url="${ctx }/toIndex.do">
+		      <a class="navbar-brand clickMenu" href="#">首页</a>
 		   </div>
 		   <div>
 		      <ul class="nav navbar-nav navbar-left">
-		         <li class="active" url="${ctx }/crs/courselist.do"><a class="clickMenu" href="#" >课程列表</a></li>
-		         <li class="dropdown">
-		            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-		                测试
-		               <b class="caret"></b>
-		            </a>
-		            <ul class="dropdown-menu">
-		               <li><a href="#">jmeter</a></li>
-		               <li><a href="#">EJB</a></li>
-		               <li><a href="#">Jasper Report</a></li>
-		               <li class="divider"></li>
-		               <li><a href="#">分离的链接</a></li>
-		               <li class="divider"></li>
-		               <li><a href="#">另一个分离的链接</a></li>
-		            </ul>
-		         </li>
+		         <li class="" url="${ctx }/crs/courselist.do"><a class="clickMenu" href="#" >课程报名</a></li>
+		         
 		      </ul>
 		      <ul class="nav navbar-nav navbar-right" style="margin-right: 0;">
 		        <c:if test="${_login_user == null }">
@@ -46,7 +32,7 @@
 									   </div>
 									   <div class="form-group">
 									      <label for="pwd">密码</label>
-									      <input type="text" class="form-control" id="pwd"  name="passwd"
+									      <input type="password" class="form-control" id="pwd"  name="passwd"
 									         placeholder="请输入密码" check-type="required" required-message="请输入密码。">
 									   </div>
 									   <div class="form-group">
@@ -73,11 +59,11 @@
 		               <b class="caret"></b>
 		            </a>
 		            <ul class="dropdown-menu">
-		               <li><a href="#">个人资料</a></li>
-		               <li><a href="#">我的课程</a></li>
-		               <li><a href="#">Jasper Report</a></li>
+		               <li url="${ctx }/usrreg/registerDetail.do"><a class="clickMenu"  href="#">个人资料</a></li>
+		                <li class="divider"></li>
+		               <li url="${ctx }/crs/myCourselist.do"><a class="clickMenu"  href="#">我的课程</a></li>
 		               <li class="divider"></li>
-		               <li><a href="#">分离的链接</a></li>
+		               <li url="${ctx }/usrreg/toModifyPwd.do"><a class="clickMenu"  href="#">修改密码</a></li>
 		               <li class="divider"></li>
 		               <li class="" url="${ctx }/login/ajaxLogout.do"><a class="logout"  href="#" >注销</a></li>
 		            </ul>

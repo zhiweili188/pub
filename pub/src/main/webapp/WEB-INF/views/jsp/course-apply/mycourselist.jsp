@@ -23,7 +23,7 @@
 		<div class="panel panel-default">
 		   <div class="panel-heading">
 		      <h3 class="panel-title">
-		         课程列表
+		         我的课程
 		      </h3>
 		   </div>
 		   <div class="panel-body">
@@ -38,6 +38,8 @@
 		         <th>课程地点</th>
 		         <th>联系人</th>
 		         <th>联系电话</th>
+		         <th>报名时间</th>
+		         <th>状态</th>
 		         <th>操作</th>
 		      </tr>
 		   </thead>
@@ -50,25 +52,19 @@
 			         <td>${crs.courseAddress }</td>
 			         <td>${crs.contactPerson }</td>
 			         <td>${crs.contactTel }</td>
+			         <td>${crs.applyTime }</td>
+			         <td>
+			         	<c:if test="${crs.applyStatus  == 0}">待审核</c:if>
+			         	<c:if test="${crs.applyStatus  == 1}">审核通过</c:if>
+			         	<c:if test="${crs.applyStatus  == 2}">审核未通过</c:if>
+			         </td>
 			         <td>
 			         	<button type="button" class="btn  btn-default  btn-detail"  refid="detail_${crs.tid }" >详细</button>
-			         	<c:if test="${crs.open == true }">
-			         		<c:if test="${crs.applied == false }">
-			         			<button type="button" class="btn btn-primary btn-default btn-submit" refid="${crs.tid }">报名</button>
-			         		</c:if>
-			         		<c:if test="${crs.applied == true }">
-			         			已报名
-			         		</c:if>
-			         	</c:if>
-			         	<c:if test="${crs.open == false }">
-			         		未到报名时间
-			         	</c:if>
-			         	
 			         </td>
 			      </tr>
-			      <tr id="detail_${crs.tid}" style="display: none;">
-			      	<td colspan="6">
-			      		<table class="table">
+			      <tr id="detail_${crs.tid}" style="display: none;" >
+			      	<td colspan="12">
+			      		<table class="table table-condensed">
 			      				  <c:forEach items="${crs.detail}" var="d" varStatus="s">
 					        	<tr  class="success">
 						        	  <td>${d.courseName }</td>

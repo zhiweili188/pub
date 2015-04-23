@@ -30,7 +30,7 @@ $(document).ready(function(){
 		    			  window.location=$("#ctx").val()+data.returnToUrl;
 		    		  }
 			       } else {
-			    	   $("#messageSpan").html(data.code);
+			    	   $("#messageSpan").html(data.code+":"+data.message);
 			    	   $("#alertDiv").removeClass("hide");
 			       }
 		    }

@@ -30,8 +30,8 @@
 	
 		<update id="updatePwd" parameterType="com.szreach.mediacenter.auth.login.bean.LoginUser">
 		update USERS set  
-		passwd=#{password}
-		WHERE id = #{id}
+		passwd=#{passwd}
+		WHERE id = #{userId}
 	</update>
 	
 	

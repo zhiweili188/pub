@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.szreach.mediacenter.course.apply.dao.UserCourseApplyDao">
 	<resultMap type="com.szreach.mediacenter.course.apply.bean.UserCourseApply" id="UserCourseApplyMap">
+		<id property="id" column="id"/>
 		<result property="userId" column="user_id"></result>
 		<result property="courseId" column="course_id"  />
 		<result property="applyTime" column="apply_time"  />
@@ -16,9 +17,9 @@
       
     </select>
     
-    <insert id="insert" parameterType="com.szreach.mediacenter.course.apply.bean.UserCourseApply">
-    	insert into user_course_apply(user_id, course_id, apply_time, status)
-    	values(
+    <insert id="insert" parameterType="com.szreach.mediacenter.course.apply.bean.UserCourseApply" useGeneratedKeys="true" keyProperty="id">
+    	insert into user_course_apply(id, user_id, course_id, apply_time, status)
+    	values(#{id},
     	  #{userId},#{courseId},#{applyTime},0
     	)
     </insert>

@@ -18,6 +18,7 @@ import com.szreach.mediacenter.common.base.AbstractBaseServiceImpl;
 import com.szreach.mediacenter.common.base.BaseDao;
 import com.szreach.mediacenter.common.base.PageBean;
 import com.szreach.mediacenter.common.util.CommonTools;
+import com.szreach.mediacenter.common.util.DateUtil;
 import com.szreach.mediacenter.course.apply.bean.UserRegister;
 import com.szreach.mediacenter.course.apply.dao.UserRegisterDao;
 
@@ -79,7 +80,7 @@ public class UserRegisterServiceImpl extends AbstractBaseServiceImpl<UserRegiste
 
 	@Override
 	public void insert(UserRegister entity) {
-		entity.setCreateTime("");
+		entity.setCreateTime(DateUtil.getCurrentDateTimeStr());
 		if(entity.getIdentity() == null) {
 			entity.setIdentity(0);
 		}
@@ -102,13 +103,15 @@ public class UserRegisterServiceImpl extends AbstractBaseServiceImpl<UserRegiste
 		return userRegisterDao.query(query, page);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.szreach.mediacenter.common.base.BaseService#update(com.szreach.mediacenter.common.base.Persistentable)
-	 */
-	@Override
-	public void update(UserRegister arg0) {
-		// TODO Auto-generated method stub
 
+	@Override
+	public void update(UserRegister entity) {
+		userRegisterDao.update(entity);
+
+	}
+	
+	public UserRegister getByUserId(String userId) {
+		return userRegisterDao.getByUserId(userId);
 	}
 	
 	public UserRegister getByIdCardNo(String idCardNo) {

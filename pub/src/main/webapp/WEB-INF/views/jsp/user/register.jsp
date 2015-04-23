@@ -7,6 +7,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="pragma" content="no-cache"> 
+     <meta http-equiv="cache-control" content="no-cache"> 
+     <meta http-equiv="expires" content="0">   
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>Bootstrap 101 Template</title>
 
@@ -18,7 +21,7 @@
   </head>
 <body> 
 <div   class ="container"> 
-<jsp:include page="../nav.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/jsp/nav.jsp"></jsp:include>
 
 	 <div   class ="row"> 
 	 <div   class ="col-md-2"> </div>
@@ -30,7 +33,7 @@
                     <div   class ="panel-body">  
 						<div   class ="alert alert-danger alert-dismissable hidden">   
 					      <button   type ="button"   class ="close"   data-dismiss ="alert"   aria-hidden ="true"> &times; </button >   
-					      <strong> 注意! </strong > 本站查询的分数来源于12333官网，详情请到官网咨询
+					      <strong> </strong >
 					
 					  </div >
 					   <form    id ="registerform" method="post" class="form-horizontal">
@@ -38,13 +41,13 @@
 					   		<div class="form-group">
 							    <label for="userName" class="col-sm-3 control-label">用户名</label>
 							     <div class="col-sm-5">
-							    	<input type="text" class="form-control "  id="userName" name="userName" placeholder="用户名" check-type="required" required-message="请输入用户名。">
+							    	<input type="text" class="form-control "  id="userName" name="userName" placeholder="用户名" check-type="required username" required-message="请输入用户名。" >
 							    </div>
 						  	</div> 
 					  	  <div class="form-group">
 							    <label for="inputPassword1" class="col-sm-3 control-label">密码</label>
 							    <div class="col-sm-5">
-							      <input type="password" class="form-control" id="inputPassword1" name="passwd" placeholder="密码" check-type="required" required-message="请输入密码。">
+							      <input type="password" class="form-control" id="inputPassword1" name="passwd" placeholder="密码" check-type="required passwd" required-message="请输入密码。">
 							    </div>
 						  </div>
 					  	  <div class="form-group">
@@ -113,19 +116,19 @@
 						<div   class ="form-group">   
 				            <label   for ="IDCard" class="col-sm-3 control-label"> 身份证号码 </label >   
 				            <div class="col-sm-4">
-				                <input   type ="text"   class ="form-control"   id ="IDCard"   name ="idCardNo"   placeholder ="身份证号码"   check-type="required" required-message="请输入身份证号码。">   
+				                <input   type ="text"   class ="form-control"   id ="IDCard"   name ="idCardNo"   placeholder ="身份证号码"   check-type="required isCardNo" required-message="请输入身份证号码。"  isCardNo-message="身份证输入不合法。">   
 				            </div >   
 				        </div >   
 							<div class="form-group">
 							    <label for="mobile" class="col-sm-3 control-label">手机</label>
 							    <div class="col-sm-4">
-							      <input type="email" class="form-control" id="mobile" name="mobile" placeholder="手机" check-type="required" required-message="请输入手机号码。">
+							      <input type="email" class="form-control" id="mobile" name="mobile" placeholder="手机" check-type="required mobile" required-message="请输入手机号码。" mobile-message="格式不正确。">
 							    </div>
 						  </div>
 							<div class="form-group">
 							    <label for="email" class="col-sm-3 control-label">Email</label>
 							    <div class="col-sm-4">
-							      <input type="email" class="form-control" id="email" name="email" placeholder="Email" check-type="required" required-message="请输入电子邮箱。">
+							      <input type="email" class="form-control" id="email" name="email" placeholder="Email" check-type="required mail" required-message="请输入电子邮箱。"  mail-message="邮箱格式不正确。">
 							    </div>
 						  </div>
 							<div class="form-group">
@@ -167,7 +170,7 @@
 				     <div class="form-group">
 					    <div class="col-sm-offset-2 col-sm-10">
 					      <button type="button" class="btn btn-primary">确&nbsp;&nbsp;认</button>
-					      <button type="button" class="btn btn-default">取&nbsp;&nbsp;消</button>
+					      <button type="button" class="btn btn-default btn-cancle">取&nbsp;&nbsp;消</button>
 					    </div>
 					  </div>
 
@@ -175,7 +178,7 @@
 				    </form >   
 				    <div   class ="alert alert-danger alert-dismissable hidden">   
 				        <button   type ="button"   class ="close"   data-dismiss ="alert"   aria-hidden ="true"> &times; </button >   
-				        <strong> 注意! </strong> 没有查到成绩，请检查身份证号码和科目后，再次查询  
+				        <strong> </strong>
 				   </div>    
 
                     </div >   
@@ -209,9 +212,13 @@
 		       //$("#error-text").text("error!"); 1.0.4版本已将提示直接内置掉，简化前端。
 		       return false;
 		     }
+		   
 		     $("#registerform").submit();
 		   }); 
 		   
+		   $("#registerform .btn-cancle").on('click',function(event){
+			   window.location="${ctx}";
+		   }); 
 		   //设置学历下拉框的内容
 		   $.ajax({
 	            type: "get",//使用get方法访问后台
@@ -346,6 +353,11 @@
 	        	 }
 	           
 	          });
+	       } else   if (obj.id=='inputPassword2'){
+	    	   if($("#inputPassword1").val() != $("#inputPassword2").val()) {
+	    		   	params.err = true;
+	  	           	params.msg = "两次输入的密码不一致";
+			     }
 	       }
 		 
 	 }

@@ -43,11 +43,14 @@
 							   </div>
 							   <div class="form-group">
 							      <label for="pwd">密码</label>
-							      <input type="text" class="form-control" id="pwd"  name="passwd"
+							      <input type="password" class="form-control" id="pwd"  name="passwd"
 							         placeholder="请输入密码" check-type="required" required-message="请输入密码。">
 							   </div>
 							   <div class="form-group">
 							      <button type="button" class="btn btn-primary btn-lg btn-block">登录</button>
+							  </div>
+							   <div class="form-group" style="text-align: right;">
+							      <a href="${ctx }/usrreg/start-register.do" style="color: red; text-decoration: underline;">没有用户，先去注册</a>
 							  </div>
 							</form>
 							 <div id="alertDiv"  class ="alert alert-danger alert-dismissable hide">   
@@ -100,7 +103,7 @@
 		    	  if(data.code == 0) {
 		    		 window.location="${ctx}"+data.returnToUrl;
 			       } else {
-			    	   $("#messageSpan").html(data.code);
+			    	   $("#messageSpan").html(data.code+":"+data.message);
 			    	   $("#alertDiv").removeClass("hide");
 			       }
 		    }

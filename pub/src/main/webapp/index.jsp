@@ -7,7 +7,7 @@
 </head>
 <body>
 <script type="text/javascript">
-top.window.location.href="/pub/crs/courselist.do";
+top.window.location.href="/pub/toIndex.do";
 </script>
 </body>
 </html>

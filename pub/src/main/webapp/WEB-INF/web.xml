@@ -44,6 +44,11 @@
     <listener>  
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>  
 </listener> 
+<listener>  
+        <listener-class>  
+            org.springframework.web.context.request.RequestContextListener  
+        </listener-class>  
+</listener>  
     <!-- Spring view分发器 -->  
     <servlet>  
         <servlet-name>dispatcher</servlet-name>  

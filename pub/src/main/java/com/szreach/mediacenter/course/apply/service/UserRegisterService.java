@@ -14,6 +14,7 @@ import com.szreach.mediacenter.course.apply.bean.UserRegister;
  * @Version: 1.0
  */
 public interface UserRegisterService extends BaseService<UserRegister> {
+	public UserRegister getByUserId(String userId);
 	public UserRegister getByIdCardNo(String idCardNo);
 	public UserRegister getByEmail(String email);
 }
