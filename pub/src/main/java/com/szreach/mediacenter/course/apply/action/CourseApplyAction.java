@@ -20,15 +20,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.szreach.mediacenter.auth.login.bean.LoginUser;
+import com.szreach.mediacenter.common.annotation.SkipLogin;
 import com.szreach.mediacenter.common.base.BaseAction;
 import com.szreach.mediacenter.common.base.BaseService;
 import com.szreach.mediacenter.common.util.DateUtil;
 import com.szreach.mediacenter.course.apply.bean.Course;
 import com.szreach.mediacenter.course.apply.bean.UserCourseApply;
+import com.szreach.mediacenter.course.apply.bean.UserRegister;
 import com.szreach.mediacenter.course.apply.service.CourseApplyService;
 import com.szreach.mediacenter.course.apply.service.UserCourseApplyService;
+import com.szreach.mediacenter.course.apply.service.UserRegisterService;
 import com.szreach.mediacenter.st.Key;
-import com.szreach.mediacenter.st.M;
 import com.szreach.mediacenter.st.Message;
 import com.szreach.mediacenter.st.ReturnCode;
 
@@ -48,6 +50,9 @@ public class CourseApplyAction extends BaseAction<Course> {
 	
 	@Autowired
 	private UserCourseApplyService userCourseApplyService;
+	@Autowired
+	private UserRegisterService userRegisterService;
+	
 	@Override
 	protected String getPrefix() {
 		return "/course-apply";
@@ -57,7 +62,7 @@ public class CourseApplyAction extends BaseAction<Course> {
 		return courseApplyService;
 	}
 	
-	
+	@SkipLogin(value=true)
 	@RequestMapping(value="/courselist.do")
 	public ModelAndView  list(Model model, HttpSession session) {
 		Course query = new Course();
@@ -95,7 +100,15 @@ public class CourseApplyAction extends BaseAction<Course> {
 	} 
 	
 	@RequestMapping(value="/detail/{refid}.do")
-	public ModelAndView  detail(@PathVariable("refid") String id, Model model) {
+	public ModelAndView  detail(@PathVariable("refid") String id, Model model, HttpSession session) {
+		LoginUser loginUser = (LoginUser)session.getAttribute(Key.SESSION_LOGIN_USER);
+		UserRegister userReg = userRegisterService.getByUserId(loginUser.getUserId());
+		if(userReg == null) {
+			model.addAttribute(Key.DISPLAY_MESSAGE, Message.ERR_USER_REGISTER_INFO_UNCOMPLETE.getMsgKey());
+			return new ModelAndView("success");     
+		} else {
+			
+		}
 		Course course = courseApplyService.getByID(id);
 		model.addAttribute("course", course);
 		return new ModelAndView(getPrefix()+"/course-detail");     

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.szreach.mediacenter.auth.login.bean.LoginUser;
+import com.szreach.mediacenter.common.annotation.SkipLogin;
 import com.szreach.mediacenter.common.base.BaseAction;
 import com.szreach.mediacenter.common.util.DateUtil;
 import com.szreach.mediacenter.course.apply.bean.Course;
@@ -43,6 +44,7 @@ public class IndexAction extends BaseAction {
 	@Autowired
 	private UserCourseApplyService userCourseApplyService;
 	
+	@SkipLogin(value=true)
 	@RequestMapping(value="/toIndex.do")
 	public ModelAndView toIndex(Model model, HttpSession session) {
 		Course query = new Course();

@@ -48,6 +48,8 @@ public class LoginUserServiceImpl extends AbstractBaseServiceImpl<LoginUser>  im
 		loginUserDao.updatePwd(user);
 	}
 
-
+	public void updateActivateStatus(LoginUser user) {
+		loginUserDao.updateActivateStatus(user);
+	}
 
 }

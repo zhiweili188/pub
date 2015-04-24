@@ -185,7 +185,7 @@
 	 $(function(){
 		   //1. 简单写法：
 		   $("#registerform").validation(ajaxValidateFormfunction);
-		   $("#registerform").attr("action", "${ctx}/usrreg/register.do");
+		   $("#registerform").attr("action", "${ctx}/usrreg/modify.do");
 		   $("#registerform .btn-primary").on('click',function(event){
 		     // 2.最后要调用 valid()方法。
 		     if ($("#registerform").valid(this,"error!")==false){

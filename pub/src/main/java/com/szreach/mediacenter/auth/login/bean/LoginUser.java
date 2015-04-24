@@ -28,6 +28,8 @@ public class LoginUser extends Persistentable {
 	private String roleIds;
 	
 	private String oldpasswd;
+	
+	private Integer activateStatus;
 
 	public String getUserId() {
 		return userId;
@@ -123,6 +125,14 @@ public class LoginUser extends Persistentable {
 
 	public void setOldpasswd(String oldpasswd) {
 		this.oldpasswd = oldpasswd;
+	}
+
+	public Integer getActivateStatus() {
+		return activateStatus;
+	}
+
+	public void setActivateStatus(Integer activateStatus) {
+		this.activateStatus = activateStatus;
 	}
 	
 	

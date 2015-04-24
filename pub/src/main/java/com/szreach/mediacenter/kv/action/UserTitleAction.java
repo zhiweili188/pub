@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.szreach.mediacenter.common.annotation.SkipLogin;
 import com.szreach.mediacenter.common.base.BaseAction;
 import com.szreach.mediacenter.common.base.BaseService;
 import com.szreach.mediacenter.kv.bean.UserTitle;
@@ -37,6 +38,7 @@ public class UserTitleAction extends BaseAction<UserTitle> {
 		return userTitleService;
 	}
 	
+	@SkipLogin(value=true)
 	@RequestMapping(value="/json.do", produces={"application/json;charset=utf-8"})
 	@ResponseBody
 	public String  all(UserTitle query, Model model) {

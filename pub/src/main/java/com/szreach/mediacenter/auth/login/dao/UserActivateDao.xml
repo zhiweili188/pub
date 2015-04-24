@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szreach.mediacenter.auth.login.dao.UserActivateDao">
+	<resultMap type="com.szreach.mediacenter.auth.login.bean.UserActivate" id="UserActivateMap">
+		<result property="userId" column="user_id"></result>
+		<result property="validDate" column="valid_date"></result>
+		<result property="validCode" column="valid_code" />
+	</resultMap>
+	<select id="getByUserId" parameterType="string" resultMap="UserActivateMap">
+		<![CDATA[ 
+		SELECT * from user_activate  WHERE user_id = #{userId}
+		]]>
+	</select>
+	
+	<insert id="insert" parameterType="com.szreach.mediacenter.auth.login.bean.UserActivate">
+		insert into user_activate(user_id, valid_date, valid_code)
+		values(#{userId},#{validDate},#{validCode}
+		
+		)
+	</insert>
+	
+	
+</mapper> 

@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.szreach.mediacenter.auth.login.bean.LoginUser;
 import com.szreach.mediacenter.auth.login.service.LoginService;
 import com.szreach.mediacenter.auth.login.service.LoginUserService;
+import com.szreach.mediacenter.common.annotation.SkipLogin;
 import com.szreach.mediacenter.common.base.BaseAction;
 import com.szreach.mediacenter.st.Key;
 import com.szreach.mediacenter.st.Message;
@@ -46,11 +47,13 @@ public class LoginAction extends BaseAction {
 	@Autowired
 	private LoginUserService loginUserService;
 	
+	@SkipLogin(value=true)
 	@RequestMapping(value="/tologin.do")
 	public ModelAndView tologin() {
 		return new ModelAndView("/login");     
 	}
 	
+	@SkipLogin(value=true)
 	@RequestMapping(value="/ajaxLogin.do")
 	@ResponseBody
 	public ResponseEntity<ReturnObject>  ajaxLogin(LoginUser user, Model model, HttpSession session) {
@@ -91,6 +94,7 @@ public class LoginAction extends BaseAction {
 		return new ModelAndView("redirect:/crs/courselist.do");     
 	}
 	
+	@SkipLogin(value=true)
 	@RequestMapping(value="/ajaxLogout.do")
 	@ResponseBody
 	public ResponseEntity<ReturnObject>  ajaxLogout(LoginUser user, Model model, HttpSession session) {
@@ -107,7 +111,7 @@ public class LoginAction extends BaseAction {
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.TEXT_PLAIN);
-
+		
 		return new ResponseEntity<ReturnObject>(returnObject, headers, HttpStatus.OK);
 	}
 

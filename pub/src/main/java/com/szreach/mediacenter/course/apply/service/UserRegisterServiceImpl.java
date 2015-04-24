@@ -4,16 +4,19 @@
  */
 package com.szreach.mediacenter.course.apply.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import com.szreach.mediacenter.auth.login.bean.LoginUser;
+import com.szreach.mediacenter.auth.login.bean.UserActivate;
 import com.szreach.mediacenter.auth.login.dao.LoginUserDao;
+import com.szreach.mediacenter.auth.login.dao.UserActivateDao;
 import com.szreach.mediacenter.common.base.AbstractBaseServiceImpl;
 import com.szreach.mediacenter.common.base.BaseDao;
 import com.szreach.mediacenter.common.base.PageBean;
@@ -37,6 +40,10 @@ public class UserRegisterServiceImpl extends AbstractBaseServiceImpl<UserRegiste
 	private UserRegisterDao userRegisterDao;
 	@Autowired
 	private LoginUserDao loginUserDao;
+	@Autowired
+	private UserActivateDao userActivateDao;
+	@Value("${activate_code_valid_date}")
+	private String activateCodeValidDate;
 	
 	@Override
 	public BaseDao<UserRegister> getBaseDao() {
@@ -77,9 +84,9 @@ public class UserRegisterServiceImpl extends AbstractBaseServiceImpl<UserRegiste
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public void saveRegisterInfo(UserRegister entity) {
 
-	@Override
-	public void insert(UserRegister entity) {
 		entity.setCreateTime(DateUtil.getCurrentDateTimeStr());
 		if(entity.getIdentity() == null) {
 			entity.setIdentity(0);
@@ -94,6 +101,25 @@ public class UserRegisterServiceImpl extends AbstractBaseServiceImpl<UserRegiste
 		loginUser.setUserName(entity.getUserName());
 		loginUser.setPasswd(CommonTools.getMD5(entity.getPasswd()));
 		loginUserDao.insert(loginUser);
+		
+		UserActivate activate = new UserActivate();
+		activate.setUserId(userId);
+		Date validDate = DateUtil.addDay(DateUtil.getCurrentDateTime(), Integer.valueOf(activateCodeValidDate));
+		activate.setValidDate(DateUtil.formatDateTime(validDate));
+		activate.setValidCode(CommonTools.getMD5(userId+activate.getValidDate()));
+		userActivateDao.insert(activate);
+	
+	}
+
+	@Override
+	public void insert(UserRegister entity) {
+		entity.setCreateTime(DateUtil.getCurrentDateTimeStr());
+		if(entity.getIdentity() == null) {
+			entity.setIdentity(0);
+		}
+		
+		userRegisterDao.insert(entity);
+		
 	}
 
 	@Override

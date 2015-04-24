@@ -34,12 +34,16 @@ public class LoginServiceImpl extends AbstractBaseServiceImpl implements LoginSe
 
 	public int checkLogin(LoginUser user, LoginUser loginUser) {
 		int result = ReturnCode.SUCCESS;
-		//1.检查用户名是否存在
+		//检查用户名是否存在
 		if(loginUser == null) {
 			result = ReturnCode.ERR_USERNAME_PASSW;
 		} else {
-			//2.检查密码是否正确
-			if( ! loginUser.getPasswd().equals(CommonTools.getMD5(user.getPasswd()))) {
+			
+			if(  loginUser.getActivateStatus()!= null && loginUser.getActivateStatus() != 1) {
+				//用户未激活
+				result = ReturnCode.ERR_USER_NOT_ACTIVATE;
+			} else if( ! loginUser.getPasswd().equals(CommonTools.getMD5(user.getPasswd()))) {
+				//检查密码是否正确
 				result = ReturnCode.ERR_USERNAME_PASSW;
 			} else {
 				

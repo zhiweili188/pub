@@ -9,8 +9,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.szreach.mediacenter.auth.test.dao.TestDao;
-import com.szreach.mediacenter.auth.test.ex.BusinessException;
-import com.szreach.mediacenter.auth.test.ex.ParameterException;
+import com.szreach.mediacenter.exception.BusinessException;
+import com.szreach.mediacenter.exception.ParameterException;
 
 /**
  * @Description:

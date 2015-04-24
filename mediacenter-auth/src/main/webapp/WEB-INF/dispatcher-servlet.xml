@@ -107,7 +107,7 @@
 			</props>
 		</property>
 	</bean> -->
-	<!-- <bean id="exceptionHandler" class="com.szreach.mediacenter.auth.test.ex.MyExceptionHandler"></bean> -->
+	<!-- <bean id="exceptionHandler" class="com.szreach.mediacenter.exception.GlobalExacetionHandler"></bean> -->
 	
 	  <mvc:interceptors>
         <mvc:interceptor>

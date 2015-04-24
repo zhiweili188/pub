@@ -6,8 +6,8 @@ package com.szreach.mediacenter.auth.test.dao;
 
 import org.springframework.stereotype.Repository;
 
-import com.szreach.mediacenter.auth.test.ex.BusinessException;
-import com.szreach.mediacenter.auth.test.ex.ParameterException;
+import com.szreach.mediacenter.exception.BusinessException;
+import com.szreach.mediacenter.exception.ParameterException;
 
 /**
  * @Description:

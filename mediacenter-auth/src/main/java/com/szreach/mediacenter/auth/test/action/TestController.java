@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.szreach.mediacenter.auth.test.ex.BusinessException;
-import com.szreach.mediacenter.auth.test.ex.ParameterException;
 import com.szreach.mediacenter.auth.test.service.TestService;
+import com.szreach.mediacenter.exception.BusinessException;
+import com.szreach.mediacenter.exception.ParameterException;
 
 /**
  * @Description:

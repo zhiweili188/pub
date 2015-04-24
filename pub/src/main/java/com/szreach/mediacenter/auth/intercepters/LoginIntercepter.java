@@ -4,6 +4,8 @@
  */
 package com.szreach.mediacenter.auth.intercepters;
 
+import java.lang.reflect.Method;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,9 +13,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.szreach.mediacenter.common.annotation.SkipLogin;
 import com.szreach.mediacenter.st.Key;
 
 /**
@@ -27,11 +31,17 @@ public class LoginIntercepter implements HandlerInterceptor {
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		logger.debug("----------------preHandle----------------");
 		String requestUri = request.getServletPath();
-		String auth = request.getParameter("auth");
-		
-		if(requestUri.equals("/toIndex.do")
+		logger.debug("----------------preHandle----------------"+requestUri);
+		//String auth = request.getParameter("auth");
+		HandlerMethod handlerMethod = (HandlerMethod) handler;
+        Method method = handlerMethod.getMethod();
+        SkipLogin annotation = method.getAnnotation(SkipLogin.class);
+        if (annotation != null && annotation.value() == true) {
+        	logger.debug("----------------skip login----------------"+requestUri);
+        	return true;
+        }
+		/*if(requestUri.equals("/toIndex.do")
 				|| requestUri.equals("/login/tologin.do")
 				|| requestUri.indexOf("/json.do")>0
 				|| requestUri.equals("/usrreg/start-register.do")
@@ -39,7 +49,7 @@ public class LoginIntercepter implements HandlerInterceptor {
 				|| requestUri.equals("/usrreg/register.do")
 				||requestUri.equals("/login/ajaxLogin.do")) {
 			return true;
-		}
+		}*/
 		boolean isLogin = false;
 		if(request.getSession(false) !=null && request.getSession(false).getAttribute(Key.SESSION_LOGIN_USER) != null) {
 			isLogin = true;

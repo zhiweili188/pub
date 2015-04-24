@@ -21,10 +21,12 @@ public enum Message {
 
 	/**登录 10xxx*/
 	ERR_USERNAME_PASSW(ReturnCode.ERR_USERNAME_PASSW,"m.username_pwd_error"),
+	ERR_USER_NOT_ACTIVATE(ReturnCode.ERR_USER_NOT_ACTIVATE,"m.user_not_activate"),
 	
 	/**课程申请 20xxx*/
 	COURSE_APPLY_SUCCESS(ReturnCode.COURSE_APPLY_SUCCESS,"m.course_apply_success"),
 	ERR_COURSE_QUOTO_FULL(ReturnCode.ERR_COURSE_QUOTO_FULL, "m.course_quoto_full"),
+	ERR_USER_REGISTER_INFO_UNCOMPLETE(ReturnCode.ERR_USER_REGISTER_INFO_UNCOMPLETE, "m.user_register_info_uncomplete"),
 	
 	/**用户注册 30xxx*/
 	USER_REGISTER_SUCCESS(ReturnCode.USER_REGISTER_SUCCESS,"m.user_register_success"),
@@ -34,6 +36,11 @@ public enum Message {
 	USER_MODIFY_SUCCESS(ReturnCode.USER_MODIFY_SUCCESS,"m.user_modify_success"),
 	USER_MODIFY_PASSWD_SUCCESS(ReturnCode.USER_MODIFY_PASSWD_SUCCESS,"m.user_modify_passwd_success"),
 	ERR_OLD_PASSWD_WRONG(ReturnCode.ERR_OLD_PASSWD_WRONG,"m.old_passwd_wrong"),
+	USER_ACTIVATE_SUCCESS(ReturnCode.USER_ACTIVATE_SUCCESS,"m.user_activate_success"),
+	ERR_ACTIVATE_DATE_EXPIRED(ReturnCode.ERR_ACTIVATE_DATE_EXPIRED,"m.activate_date_expire"),
+	ERR_ACTIVATE_CODE_INVALID(ReturnCode.ERR_ACTIVATE_CODE_INVALID,"m.activate_code_invalid"),
+	
+	
 	;
 	public static void main(String[] args) {
 		

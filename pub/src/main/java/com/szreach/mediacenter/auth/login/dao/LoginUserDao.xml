@@ -11,6 +11,7 @@
 		<result property="roleType" column="ROLETYPE"  javaType="int" jdbcType="INTEGER"/>
 		<result property="userType" column="USERTYPE"  javaType="int" jdbcType="INTEGER"/>
 		<result property="level" column="LEVEL"  javaType="int" jdbcType="INTEGER"/>
+		<result property="activateStatus" column="activate_status"  javaType="int" jdbcType="INTEGER"/>
 	</resultMap>
 	<select id="get" parameterType="string" resultMap="loginUserMap">
 		<![CDATA[ 
@@ -22,8 +23,8 @@
 	</select>
 	
 	<insert id="insert" parameterType="com.szreach.mediacenter.auth.login.bean.LoginUser">
-		insert into USERS(id, USERNAME, PASSWD, ROLETYPE, USERTYPE)
-		values(#{userId},#{userName},#{passwd},0,0
+		insert into USERS(id, USERNAME, PASSWD, ROLETYPE, USERTYPE,activate_status)
+		values(#{userId},#{userName},#{passwd},0,0,0
 		
 		)
 	</insert>
@@ -31,6 +32,11 @@
 		<update id="updatePwd" parameterType="com.szreach.mediacenter.auth.login.bean.LoginUser">
 		update USERS set  
 		passwd=#{passwd}
+		WHERE id = #{userId}
+	</update>
+		<update id="updateActivateStatus" parameterType="com.szreach.mediacenter.auth.login.bean.LoginUser">
+		update USERS set  
+		activate_status=#{activateStatus}
 		WHERE id = #{userId}
 	</update>
 	

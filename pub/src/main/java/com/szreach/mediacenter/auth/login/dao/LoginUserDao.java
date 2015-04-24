@@ -22,4 +22,5 @@ public interface LoginUserDao extends BaseDao<LoginUser> {
 	public void updatePwd(LoginUser user);
 	public void batchDel(List<Integer> idList);
 	public LoginUser getByUserName(String userName);
+	public void updateActivateStatus(LoginUser user);
 }

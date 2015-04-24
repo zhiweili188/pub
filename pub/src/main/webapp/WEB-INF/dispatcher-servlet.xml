@@ -34,6 +34,19 @@
 	</bean>
 	 <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"></bean>
   -->
+  
+  <!-- 定义环境变量文件 -->
+	<bean id="properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath*:/email.properties</value>
+				<value>classpath*:/system.properties</value>
+			</list>
+		</property>
+	</bean>
+	
 	<context:component-scan base-package="com.szreach.mediacenter" >
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 		<context:exclude-filter type="annotation"  expression="org.springframework.stereotype.Service" />
@@ -109,11 +122,11 @@
 				<!--默认的编码方式 -->  
 	            <property name="defaultEncoding" value="UTF-8"/>  
 				<!--邮箱服务器的主机地址 -->  
-	            <property name="host" value="smtp.qq.com"/>  
+	            <property name="host" value="smtp.126.com"/>  
 				<!--服务器的端口号 -->  
 	            <property name="port" value="25"/>  
 				<!--连接服务器的用户名 也就是你的QQ邮箱的地址名例如xxx@qq.com-->  
-	            <property name="username" value="364618965@qq.com"/>  
+	            <property name="username" value="zhiweili188@126.com"/>  
 				<!--密码 就是你登陆邮箱的密码 -->  
 	            <property name="password" value="Zhiweili19831209"/>  
 				<!--下面就是smtp的一些设置-->  
@@ -122,10 +135,44 @@
 				<!--设置自动登录-->  
 	             <prop key="mail.smtp.auth">true</prop>  
 				<!-- 设置端口的进入优先命令状态-->  
-	        	<prop key="mail.smtp.starttls.enable">true</prop>  
+	        	<prop key="mail.smtp.starttls.enable">false</prop>  
 	             </props>  
 	            </property>  
-	</bean>  
+	</bean> 
+	<!-- freemarker config -->
+	<bean id="freeMarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/WEB-INF/email/" />
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">1800</prop>
+				<prop key="defaultEncoding">utf-8</prop>
+				<prop key="locale">zh_CN</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="mailService" class="com.szreach.mediacenter.mail.service.MailServiceImpl">
+		<property name="freeMarkerConfigurer" ref="freeMarkerConfigurer" />
+		<property name="mailSender" ref="mailSender" />
+		<property name="emailFrom" value="zhiweili188@126.com" />
+		<property name="fromDisplayName" value="test" />
+		<property name="replyTo" value="364618965@qq.com" />
+	</bean>
+	
+	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="10"/>
+		<property name="maxPoolSize" value="30"/>
+	</bean>
+	
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="suffix">
+			<value>.ftl</value>
+		</property>
+		<property name="contentType" value="text/html;charset=utf-8"></property>
+	</bean>
+	
+	
+	
 	
 		<!-- <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		定义默认的异常处理页面，当该异常类型的注册时使用
@@ -142,10 +189,9 @@
 			</props>
 		</property>
 	</bean> -->
-	<!-- <bean id="exceptionHandler" class="com.szreach.mediacenter.auth.test.ex.MyExceptionHandler"></bean> -->
+	<!-- 异常处理器 -->
+	<bean id="exceptionHandler" class="com.szreach.mediacenter.exception.GlobalExacetionHandler"></bean>
 	 <mvc:interceptors>
-       
-        
          <mvc:interceptor>
             <!-- 对所有的请求拦截使用/** ,对某个模块下的请求拦截使用：/myPath/* -->
             <mvc:mapping path="/**" />

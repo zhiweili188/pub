@@ -22,5 +22,8 @@ public interface LoginUserService extends BaseService<LoginUser> {
 	
 	//public void updateLoginUser(LoginUser user);
 	public void updatePwd(LoginUser user);
+	public void updateActivateStatus(LoginUser user);
+	
+	
 
 }
